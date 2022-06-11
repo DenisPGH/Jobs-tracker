@@ -38,18 +38,43 @@ def bad_works(name):
 
 
 
-def binary_search(list,searched):
-    pass
+def binary_search(collection,target):
+    """
+
+    :param collection: list of all strings
+    :param target: searched text
+    :return: if text is found in a list, return true
+    else return false, not in the list collection
+    """
+    first_index=0
+    last_index=len(collection)-1
+    while first_index<=last_index:
+        mid_point=(first_index+last_index)//2
+        if collection[mid_point]==target:
+            return True
+        elif collection[mid_point]<target:
+            first_index=mid_point+1
+        else:
+            last_index=mid_point-1
+    return  False
 
 
 def check_if_record_already_exist(job):
+    """
+    this function check if a new job is already in db
+    if it is return true
+    if its not return false
+
+
+    """
+    tomorrow=str(dt.today()+datetime.timedelta(days=1)).split(" ")[0]
     yesterday=str(dt.today()-datetime.timedelta(days=1)).split(" ")[0]
     today=str(dt.today()).split(" ")[0]
     all_record_from_yesterday=JobScout.objects.filter(publication_date=yesterday).order_by('title')
     all_record_from_today=JobScout.objects.filter(publication_date=today).order_by('title')
     list_strings_yesterday_jobs=[x.title+x.place+x.employeer for x in all_record_from_yesterday]
     list_strings_today_jobs=[x.title+x.place+x.employeer for x in all_record_from_today]
-    if job in list_strings_yesterday_jobs or job in list_strings_today_jobs:
+    if binary_search(list_strings_yesterday_jobs,job) or binary_search(list_strings_today_jobs,job):
         return True
     else:
         return False

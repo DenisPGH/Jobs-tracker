@@ -29,14 +29,14 @@ class IndexPage(views.TemplateView):
 
 
 def StoreNewJobs(request):
-    """ this function start the crawling and store the result to db"""
-    #crawl_data_from_jobs_ch()
+    """ this function start the crawling from Jobs.ch and Jobscout.ch and store the result to db"""
+    crawl_data_from_jobs_ch()
     searcher_jobscout()
     return redirect('index')
 
 
 def StoreNewJobScout(request):
-    """ this function start the crawling and store the result to db"""
+    """ this function start the crawling from Jobscout.ch and store the result to db"""
     searcher_jobscout()
     return redirect('index')
 
