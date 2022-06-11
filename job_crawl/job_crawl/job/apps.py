@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class CrawlConfig(AppConfig):
+class JobConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'job.job_app.crawl'
+    name = 'job_crawl.job'

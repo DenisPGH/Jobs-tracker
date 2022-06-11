@@ -5,7 +5,7 @@ import requests
 import time
 from datetime import datetime
 
-from job.job_app.crawl.models import Job
+from job_crawl.job.models import Job
 
 
 def prove_for_german_letter(text):

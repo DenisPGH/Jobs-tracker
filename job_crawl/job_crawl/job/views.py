@@ -2,10 +2,12 @@ from django.shortcuts import render, redirect
 from django.views import generic as views
 
 # Create your views here.
-from job.job_app.crawl.crawl_jobs_ch import crawl_data_from_jobs_ch
-from job.job_app.crawl.crawl_jobs_scout import searcher_jobscout
-from job.job_app.crawl.models import Job, JobScout
+
 from  datetime import datetime
+
+from job_crawl.job.crawl_jobs_ch import crawl_data_from_jobs_ch
+from job_crawl.job.crawl_jobs_scout import searcher_jobscout
+from job_crawl.job.models import Job, JobScout
 
 
 class IndexPage(views.TemplateView):
@@ -38,5 +40,6 @@ def StoreNewJobScout(request):
     """ this function start the crawling and store the result to db"""
     searcher_jobscout()
     return redirect('index')
+
 
 

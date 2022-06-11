@@ -1,7 +1,7 @@
 import csv
+from datetime import datetime
 
-from job.job_app.crawl.crawl_jobs_ch import prove_for_german_letter, bad_works
-from job.job_app.crawl.models import JobScout
+
 
 import requests
 from bs4 import BeautifulSoup as soup
@@ -23,6 +23,8 @@ import re
 #             text=text.replace(each_letter,'-')
 #
 #     return str(text)
+from job_crawl.job.crawl_jobs_ch import prove_for_german_letter, bad_works
+from job_crawl.job.models import JobScout
 
 pattern=r'href="(?P<link>([^@]+/))"[^@]+ title="(?P<name>([^@]+))"'
 patter_town=r'<span>(?P<employer>([^@]+))</[^@]+>, <span>(?P<place>([^@]+))</span>'
@@ -56,6 +58,7 @@ def searcher_jobscout():
     }
     counter_pages=1
     counter_found_jobs=0
+    today = str(datetime.today()).split(' ')[0]
     prefix='https://www.jobscout24.ch'
 
     with open('result_scout.csv', 'w') as file:
@@ -124,6 +127,7 @@ def searcher_jobscout():
                     continue
                 new_jobs=JobScout(
                     title=name,
+                    publication_date=today,
                     link=prefix+link,
                     place=place,
                     employeer=employer
