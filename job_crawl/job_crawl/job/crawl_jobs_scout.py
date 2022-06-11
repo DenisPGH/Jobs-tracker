@@ -23,7 +23,7 @@ import re
 #             text=text.replace(each_letter,'-')
 #
 #     return str(text)
-from job_crawl.job.crawl_jobs_ch import prove_for_german_letter, bad_works
+from job_crawl.job.helper import prove_for_german_letter, bad_works, check_if_record_already_exist
 from job_crawl.job.models import JobScout
 
 pattern=r'href="(?P<link>([^@]+/))"[^@]+ title="(?P<name>([^@]+))"'
@@ -33,8 +33,8 @@ patter_town=r'<span>(?P<employer>([^@]+))</[^@]+>, <span>(?P<place>([^@]+))</spa
 #_sn:#8$_se:26$_ss:0$_st:1654584130867$browser_client_id:xfsq0qy$user_anon_id:anon_1520784316553$dc_visit:8$ses_id:1654580820603%3Bexp-session$_pn:5%3Bexp-session$dc_event:26%3Bexp-session$dc_region:eu-central-1%3Bexp-session; = os.getenv('_sn:8$_se:26$_ss:0$_st:1654584130867$browser_client_id:xfsq0qy$user_anon_id:anon_1520784316553$dc_visit:8$ses_id:1654580820603%3Bexp-session$_pn:5%3Bexp-session$dc_event:26%3Bexp-session$dc_region:eu-central-1%3Bexp-session;')
 
 def searcher_jobscout():
-    del_table=JobScout.objects.all()
-    del_table.delete()
+    # del_table=JobScout.objects.all()
+    # del_table.delete()
     cookies = {
         'ASID': '02dc0aeb-6173-4a16-b9fd-90c6af5f4285|20220520|20',
         'CONSENTMGR': 'c1:1%7Cc4:1%7Cc2:0%7Cc3:0%7Cc5:0%7Cc6:0%7Cc7:0%7Cc8:0%7Cc9:0%7Cc10:0%7Cc11:0%7Cc12:0%7Cc13:0%7Cc14:0%7Cc15:0%7Cts:1653026236856%7Cconsent:true',
@@ -106,7 +106,7 @@ def searcher_jobscout():
             info=re.finditer(pattern,str(key))
             places=re.finditer(patter_town,str(value))
 
-            name=''
+            title=''
             link=''
             place=''
             employer=''
@@ -116,17 +116,18 @@ def searcher_jobscout():
                 for each_data in info:
                     counter_found_jobs+=1
                     link=str(each_data.group('link'))
-                    name=str(prove_for_german_letter(each_data.group('name')))
+                    title=str(prove_for_german_letter(each_data.group('name')))
                 for each_place in places:
                     place = str(prove_for_german_letter(each_place.group('place')))
                     employer = str(prove_for_german_letter(each_place.group('employer')))
 
 
-                obs_writer.writerow([name,link,place,employer])
-                if bad_works(name): #TODO add date to each jobs and check if was yesterday in result
+                obs_writer.writerow([title,link,place,employer])
+                text_for_prove=title+place+employer # for prove if already in db
+                if bad_works(title) or check_if_record_already_exist(text_for_prove):
                     continue
                 new_jobs=JobScout(
-                    title=name,
+                    title=title,
                     publication_date=today,
                     link=prefix+link,
                     place=place,

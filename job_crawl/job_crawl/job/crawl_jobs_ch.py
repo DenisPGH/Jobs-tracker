@@ -5,38 +5,10 @@ import requests
 import time
 from datetime import datetime
 
+from job_crawl.job.helper import prove_for_german_letter, bad_works
 from job_crawl.job.models import Job
 
 
-def prove_for_german_letter(text):
-    """ function for clear the text from no ASCII char,
-     and replace german letters,
-     return pure text"""
-    deutsche={'ö':"oe",'Ö':'OE','Ü':'UE','ü':'ue','ä':'ae','Ä':'AE'}
-    for each in deutsche:
-        if each in text:
-            text=text.replace(each,deutsche[each])
-    for each_letter in text:
-        if not 0 <= ord(each_letter) <= 127:
-            text=text.replace(each_letter,'-')
-
-    return str(text)
-
-
-def bad_works(name):
-    """
-    if has a bad work return true and dont save in db
-    else return false, it will be save
-    """
-    bad_works = ['pflege', 'pflege', 'dipl.', 'sachberater',
-                 'sozial', 'sozial', 'geruestbauer', 'geruestbauer',
-                'apotheker', 'automatiker', 'fage', 'gipser', 'sachbearbeit',
-                 'wissenschaft','zimmerm','maler','metallbauer',
-                 'fabe','buchhalter','koch','maurer','schreiner']
-    if any(word in name.lower() for word in bad_works):
-        return True
-    else:
-        return False
 
 #_sn=13 #$_se:7$_ss:0$_st:1654522198770$browser_client_id:el97kjl4$user_anon_id:anon_467984385155$dc_visit:13$ses_id:1654520385639%3Bexp-session$_pn:1%3Bexp-session$dc_event:7%3Bexp-session$dc_region:eu-central-1%3Bexp-session = os.getenv('_sn:13$_se:7$_ss:0$_st:1654522198770$browser_client_id:el97kjl4$user_anon_id:anon_467984385155$dc_visit:13$ses_id:1654520385639%3Bexp-session$_pn:1%3Bexp-session$dc_event:7%3Bexp-session$dc_region:eu-central-1%3Bexp-session')
 #_sn:13$_se:7$_ss:0$_st:1654522198770$browser_client_id:el97kjl4$user_anon_id:anon_467984385155$dc_visit:13$ses_id:1654520385639%3Bexp-session$_pn:1%3Bexp-session$dc_event:7%3Bexp-session$dc_region:eu-central-1%3Bexp-session; = os.getenv('_sn:13$_se:7$_ss:0$_st:1654522198770$browser_client_id:el97kjl4$user_anon_id:anon_467984385155$dc_visit:13$ses_id:1654520385639%3Bexp-session$_pn:1%3Bexp-session$dc_event:7%3Bexp-session$dc_region:eu-central-1%3Bexp-session;')

@@ -114,6 +114,7 @@ function showText(){
         <th>Numer</th>
         <th>Title</th>
         <th>LINK</th>
+        <th>Date</th>
         <th>Place</th>
         <th>Employer</th>
 
@@ -128,6 +129,7 @@ function showText(){
             <td>
                 <a href="{{ each.link }}">Jobscout</a>
             </td>
+            <td>{{ each.publication_date}}</td>
             <td>{{ each.place}}</td>
             <td>
                 {{ each.employeer }}
