@@ -16,6 +16,11 @@
             border-color: #e4e4e4;
             text-align: left;
 
+
+        }
+        td.date_{
+            border-left-color: #1e21e2;
+            border-left-width: 2px;
         }
         body{
             background: #1a1919;
@@ -95,7 +100,7 @@ function showText(){
             <td>
                 <a href="{{ each.link }}">Jobs.ch</a>
             </td>
-            <td>{{ each.publication_date}}</td>
+            <td class="date_">{{ each.publication_date}}</td>
             <td>{{ each.place}}</td>
             <td>
                 {{ each.is_active }}
@@ -129,7 +134,7 @@ function showText(){
             <td>
                 <a href="{{ each.link }}">Jobscout</a>
             </td>
-            <td>{{ each.publication_date}}</td>
+            <td class="date_">{{ each.publication_date}}</td>
             <td>{{ each.place}}</td>
             <td>
                 {{ each.employeer }}
