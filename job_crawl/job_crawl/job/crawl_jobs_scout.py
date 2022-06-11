@@ -1,29 +1,15 @@
 import csv
 from datetime import datetime as dt
 import datetime
-
-
-
 import requests
 from bs4 import BeautifulSoup as soup
 import re
+import time
 
 
 
 
-# def prove_for_german_letter_(text):
-#     """ function for clear the text from no ASCII char,
-#      and replace german letters,
-#      return pure text"""
-#     deutsche={'ö':"oe",'Ö':'OE','Ü':'UE','ü':'ue','ä':'ae','Ä':'AE'}
-#     for each in deutsche:
-#         if each in text:
-#             text=text.replace(each,deutsche[each])
-#     for each_letter in text:
-#         if not 0 <= ord(each_letter) <= 127:
-#             text=text.replace(each_letter,'-')
-#
-#     return str(text)
+
 from job_crawl.job.helper import prove_for_german_letter, bad_works, check_if_record_already_exist
 from job_crawl.job.models import JobScout
 
@@ -34,8 +20,9 @@ patter_town=r'<span>(?P<employer>([^@]+))</[^@]+>, <span>(?P<place>([^@]+))</spa
 #_sn:#8$_se:26$_ss:0$_st:1654584130867$browser_client_id:xfsq0qy$user_anon_id:anon_1520784316553$dc_visit:8$ses_id:1654580820603%3Bexp-session$_pn:5%3Bexp-session$dc_event:26%3Bexp-session$dc_region:eu-central-1%3Bexp-session; = os.getenv('_sn:8$_se:26$_ss:0$_st:1654584130867$browser_client_id:xfsq0qy$user_anon_id:anon_1520784316553$dc_visit:8$ses_id:1654580820603%3Bexp-session$_pn:5%3Bexp-session$dc_event:26%3Bexp-session$dc_region:eu-central-1%3Bexp-session;')
 
 def searcher_jobscout():
-    del_table=JobScout.objects.all()
-    del_table.delete()
+    start = time.time()
+    # del_table=JobScout.objects.all()
+    # del_table.delete()
     cookies = {
         'ASID': '02dc0aeb-6173-4a16-b9fd-90c6af5f4285|20220520|20',
         'CONSENTMGR': 'c1:1%7Cc4:1%7Cc2:0%7Cc3:0%7Cc5:0%7Cc6:0%7Cc7:0%7Cc8:0%7Cc9:0%7Cc10:0%7Cc11:0%7Cc12:0%7Cc13:0%7Cc14:0%7Cc15:0%7Cts:1653026236856%7Cconsent:true',
@@ -139,6 +126,6 @@ def searcher_jobscout():
                 new_jobs.save()
 
 
-    #print(counter_found_jobs)
-    print('done jobscout')
+
+    print(f'Done jobscout.Time for it: {time.time() - start}')
 

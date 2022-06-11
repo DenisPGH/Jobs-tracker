@@ -40,6 +40,7 @@ def bad_works(name):
 
 def binary_search(collection,target):
     """
+    prove list with string, if contain a target string
 
     :param collection: list of all strings
     :param target: searched text
@@ -73,7 +74,7 @@ def check_if_record_already_exist(job):
     all_record_from_yesterday=JobScout.objects.filter(publication_date=yesterday).order_by('title')
     all_record_from_today=JobScout.objects.filter(publication_date=today).order_by('title')
     list_strings_yesterday_jobs=[x.title+x.place+x.employeer for x in all_record_from_yesterday]
-    list_strings_today_jobs=[x.title+x.place+x.employeer for x in all_record_from_today]
+    list_strings_today_jobs=[y.title+y.place+y.employeer for y in all_record_from_today]
     if binary_search(list_strings_yesterday_jobs,job) or binary_search(list_strings_today_jobs,job):
         return True
     else:

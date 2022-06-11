@@ -5,18 +5,14 @@ import requests
 import time
 from datetime import datetime
 
-from job_crawl.job.helper import prove_for_german_letter, bad_works
-from job_crawl.job.models import Job
 
 
 
-#_sn=13 #$_se:7$_ss:0$_st:1654522198770$browser_client_id:el97kjl4$user_anon_id:anon_467984385155$dc_visit:13$ses_id:1654520385639%3Bexp-session$_pn:1%3Bexp-session$dc_event:7%3Bexp-session$dc_region:eu-central-1%3Bexp-session = os.getenv('_sn:13$_se:7$_ss:0$_st:1654522198770$browser_client_id:el97kjl4$user_anon_id:anon_467984385155$dc_visit:13$ses_id:1654520385639%3Bexp-session$_pn:1%3Bexp-session$dc_event:7%3Bexp-session$dc_region:eu-central-1%3Bexp-session')
-#_sn:13$_se:7$_ss:0$_st:1654522198770$browser_client_id:el97kjl4$user_anon_id:anon_467984385155$dc_visit:13$ses_id:1654520385639%3Bexp-session$_pn:1%3Bexp-session$dc_event:7%3Bexp-session$dc_region:eu-central-1%3Bexp-session; = os.getenv('_sn:13$_se:7$_ss:0$_st:1654522198770$browser_client_id:el97kjl4$user_anon_id:anon_467984385155$dc_visit:13$ses_id:1654520385639%3Bexp-session$_pn:1%3Bexp-session$dc_event:7%3Bexp-session$dc_region:eu-central-1%3Bexp-session;')
-def crawl_data_from_jobs_ch():
-    """ this function crawl all result by given criteria
-    and store returned result ot db and txt file"""
-    for_del=Job.objects.all()
-    for_del.delete()
+
+
+def crawl_data_tests():
+
+
     cookies = {
         'session_id': '289a0728-dde1-4c6a-bca4-da645a35e6b7',
         'xp_consent_mgr': 'analytics%2Csearch',
@@ -35,7 +31,7 @@ def crawl_data_from_jobs_ch():
         '_clsk': '1puei0c|1654520397576|2|1|e.clarity.ms/collect',
         'last_searches': '[{%22query%22:%22location=Bern%22%2C%22date%22:%222022-06-06%2015:59:58%22}%2C{%22query%22:%22query=python%2520developer%22%2C%22date%22:%222022-06-06%2015:59:45%22}%2C{%22query%22:%22category-ids%255B0%255D=103&category-ids%255B1%255D=105&category-ids%255B2%255D=106&category-ids%255B3%255D=108&category-ids%255B4%255D=117&employment-position-ids%255B0%255D=3&location=Bern%22%2C%22date%22:%222022-06-06%2011:04:56%22}]',
         '_ga_WVB8D40K7K': 'GS1.1.1654520387.4.1.1654520398.0',
-        #'utag_main': f"v_id:01809f7fa7ee001d088bd1adc17b05073003f06b007e8{_sn:13$_se:7$_ss:0$_st:1654522198770$browser_client_id:el97kjl4$user_anon_id:anon_467984385155$dc_visit:13$ses_id:1654520385639%3Bexp-session$_pn:1%3Bexp-session$dc_event:7%3Bexp-session$dc_region:eu-central-1%3Bexp-session}",
+        # 'utag_main': f"v_id:01809f7fa7ee001d088bd1adc17b05073003f06b007e8{_sn:13$_se:7$_ss:0$_st:1654522198770$browser_client_id:el97kjl4$user_anon_id:anon_467984385155$dc_visit:13$ses_id:1654520385639%3Bexp-session$_pn:1%3Bexp-session$dc_event:7%3Bexp-session$dc_region:eu-central-1%3Bexp-session}",
         '_gat_globalGaTracker': '1',
     }
 
@@ -57,14 +53,12 @@ def crawl_data_from_jobs_ch():
         'x-source': 'jobs_ch_desktop',
     }
 
-
-    counter=1
-    counter_older_jobs = 0
-    code=0
-    start=time.time()
-    today=str(datetime.today()).split(' ')[0]
-    #print(today)
-    with open('info.csv','w') as file:
+    counter = 1
+    counter_not_today_jobs = 0
+    start = time.time()
+    today = str(datetime.today()).split(' ')[0]
+    # print(today)
+    with open('info.csv', 'w') as file:
         file.write('')
 
     while True:
@@ -74,46 +68,35 @@ def crawl_data_from_jobs_ch():
             'rows': '20',
             'sort': 'date',
         }
-        response = requests.get('https://www.jobs.ch/api/v1/public/search', params=params, cookies=cookies, headers=headers)
-        result=json.loads(response.text)
-        code=response.status_code #200 ok,422 ne e
+        response = requests.get('https://www.jobs.ch/api/v1/public/search', params=params, cookies=cookies,
+                                headers=headers)
+        result = json.loads(response.text)
+        code = response.status_code  # 200 ok,422 ne e
 
-        if code!=200 or counter_older_jobs>60:
+        if code != 200 or counter_not_today_jobs>60:
             break
 
         print(f"Jobs.ch Page: {counter} ==> {len(result['documents'])}")
-        counter+=1
-        with open('info.csv', mode='a', newline='') as job_file:
-            jobs_writer = csv.writer(job_file, delimiter='|')
-            for each_job_ind in range(len(result['documents'])):
+        counter += 1
 
-                title = prove_for_german_letter(result["documents"][each_job_ind]['title'])
-                # (title)
-                publication_date = result["documents"][0]['publication_date'].split('T')[0]
-                if publication_date !=today:
-                    """ store only jobs from the current day"""
-                    counter_older_jobs += 1
+        for each_job_ind in range(len(result['documents'])):
+            title = result["documents"][each_job_ind]['title']
+            publication_date = result["documents"][0]['publication_date'].split('T')[0]
+            if publication_date != today:
+                    counter_not_today_jobs+=1
                     continue
-                # print(publication_date)
-                place = prove_for_german_letter(result["documents"][each_job_ind]['place'])
-                is_active = result["documents"][each_job_ind]['is_active']
-                link_ = result["documents"][each_job_ind]['_links']['detail_de']['href']
-                # jobs_writer.writerow([title.encode("utf-8")])
-                jobs_writer.writerow([title, publication_date, place, is_active, link_])
-                if bad_works(title):
-                    continue
-                new_job=Job(
-                    title=title,
-                    publication_date=publication_date,
-                    place=place,
-                    is_active=is_active,
-                    link=link_
-                )
-                new_job.save()
+
+            place = result["documents"][each_job_ind]['place']
+            is_active = result["documents"][each_job_ind]['is_active']
+            link_ = result["documents"][each_job_ind]['_links']['detail_de']['href']
 
 
 
-    print(f'Time for it: {time.time()-start}')
+    print(f'Time for it: {time.time() - start}')
+    print(f"older jobs= {counter_not_today_jobs}")
+
+
+crawl_data_tests()
 
 
 

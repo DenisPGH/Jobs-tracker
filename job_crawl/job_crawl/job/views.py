@@ -17,7 +17,6 @@ class IndexPage(views.TemplateView):
         # self.object is a Profile instance
         jobs = Job.objects.all().order_by('title')
         jobscout = JobScout.objects.all().filter(publication_date=today).order_by('title')
-        today=str(datetime.today()).split(' ')[0]
         context['jobs']=jobs
         context['today']=today
         context['jobscout']=jobscout
