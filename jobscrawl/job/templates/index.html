@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jobs</title>
+    <style>
+        {#a {#}
+        {#    color: white;#}
+        {#    }#}
+        a:link {
+            text-decoration: none;
+            color: white;
+        }
+        table, th, td {
+            border: 1px solid;
+            border-color: #e4e4e4;
+            text-align: left;
+
+        }
+        body{
+            background: #1a1919;
+            font-size: 17px;
+            color: white;
+
+            {#font-family: "Times New Roman", Times, serif;#}
+            font-family: Arial, Helvetica, sans-serif;
+
+
+
+        }
+        table {
+             counter-reset: row-num;
+        }
+        table tr.sec {
+            counter-increment: row-num;
+        }
+        table tr.sec {
+            counter-reset: rowNumber;
+            counter-increment: row-num;
+        }
+        table tr.sec td:first-child::before {
+    content: counter(row-num) ". ";
+}
+    </style>
+</head>
+<body>
+
+<div>
+    <p>{{ today }} == {{ all }}</p>
+    <form class="mid" action="{% url 'crawl' %}">
+            <button class="mid" id="stop">Jobs.ch* + Jobscout</button>
+            {% csrf_token %}
+        </form>
+        <h5> * it takes about 80 sec, then refresh the page </h5>
+{#    <button class="on" onclick="crawl_on()">Get Jobs</button>#}
+
+{#    <form class="mid" action="{% url 'crawlscout' %}">#}
+{#            <button class="mid" id="stop">JobScout</button>#}
+{#            {% csrf_token %}#}
+{#        </form>#}
+    <p id="wait" ></p>
+</div>
+
+<script>
+function crawl_on() {
+  {#document.getElementById("demo").src = "/job";#}
+  document.getElementById("wait").innerHTML = "Turning on. . . . .";
+  setTimeout(showText, 1000);
+
+}
+function showText(){
+  document.getElementById("wait").innerHTML = "Done";
+}
+</script>
+
+
+<div>
+<table>
+    <tr class="fir">
+        <th>Numer</th>
+        <th>Title</th>
+        <th>LINK</th>
+        <th>Date</th>
+        <th>Place</th>
+        <th>Active</th>
+
+
+
+    </tr>
+    {%  for each in jobs %}
+        <tr class="sec">
+            <td></td>
+            <th> <a href="{{ each.link }}">{{ each.title }}</a></th>
+{#            <th>{{ each.title }}</th>#}
+            <td>
+                <a href="{{ each.link }}">Jobs.ch</a>
+            </td>
+            <td>{{ each.publication_date}}</td>
+            <td>{{ each.place}}</td>
+            <td>
+                {{ each.is_active }}
+            </td>
+
+
+        </tr>
+
+    {% endfor %}
+</table>
+</div>
+
+<div>
+    <table>
+    <tr class="fir">
+        <th>Numer</th>
+        <th>Title</th>
+        <th>LINK</th>
+        <th>Place</th>
+        <th>Employer</th>
+
+
+
+    </tr>
+    {%  for each in jobscout %}
+        <tr class="sec">
+            <td></td>
+            <th> <a href="{{ each.link }}">{{ each.title }}</a></th>
+{#            <th>{{ each.title }}</th>#}
+            <td>
+                <a href="{{ each.link }}">Jobscout</a>
+            </td>
+            <td>{{ each.place}}</td>
+            <td>
+                {{ each.employeer }}
+            </td>
+
+
+        </tr>
+
+    {% endfor %}
+</table>
+</div>
+</body>
+</html>
