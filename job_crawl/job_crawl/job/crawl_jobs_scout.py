@@ -16,8 +16,7 @@ from job_crawl.job.models import JobScout
 pattern=r'href="(?P<link>([^@]+/))"[^@]+ title="(?P<name>([^@]+))"'
 patter_town=r'<span>(?P<employer>([^@]+))</[^@]+>, <span>(?P<place>([^@]+))</span>'
 
-#_sn:#8$_se:26$_ss:0$_st:1654584130867$browser_client_id:xfsq0qy$user_anon_id:anon_1520784316553$dc_visit:8$ses_id:1654580820603%3Bexp-session$_pn:5%3Bexp-session$dc_event:26%3Bexp-session$dc_region:eu-central-1%3Bexp-session = os.getenv('_sn:8$_se:26$_ss:0$_st:1654584130867$browser_client_id:xfsq0qy$user_anon_id:anon_1520784316553$dc_visit:8$ses_id:1654580820603%3Bexp-session$_pn:5%3Bexp-session$dc_event:26%3Bexp-session$dc_region:eu-central-1%3Bexp-session')
-#_sn:#8$_se:26$_ss:0$_st:1654584130867$browser_client_id:xfsq0qy$user_anon_id:anon_1520784316553$dc_visit:8$ses_id:1654580820603%3Bexp-session$_pn:5%3Bexp-session$dc_event:26%3Bexp-session$dc_region:eu-central-1%3Bexp-session; = os.getenv('_sn:8$_se:26$_ss:0$_st:1654584130867$browser_client_id:xfsq0qy$user_anon_id:anon_1520784316553$dc_visit:8$ses_id:1654580820603%3Bexp-session$_pn:5%3Bexp-session$dc_event:26%3Bexp-session$dc_region:eu-central-1%3Bexp-session;')
+
 
 def searcher_jobscout():
     start = time.time()
@@ -83,18 +82,14 @@ def searcher_jobscout():
         if response.status_code !=200:
             break
         counter_pages+=1
-        #print(response.text)
         html=soup(response.text,'html.parser')
         all_jobs=html.select('.upper-line') # return a list
         job_attributes=html.select('.job-attributes')
         dict_=dict(zip(all_jobs,job_attributes))
-        #print(job_attributes[0])
         print(f" Jobscout Page {counter_pages} ==> {len(all_jobs)}")
-        #print(all_jobs[0])
         for key,value in dict_.items():
             info=re.finditer(pattern,str(key))
             places=re.finditer(patter_town,str(value))
-
             title=''
             link=''
             place=''

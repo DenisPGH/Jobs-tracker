@@ -1,17 +1,14 @@
 import json
-import os
 import csv
 import requests
 import time
 from datetime import datetime
-
 from job_crawl.job.helper import prove_for_german_letter, bad_works
 from job_crawl.job.models import Job
 
 
 
-#_sn=13 #$_se:7$_ss:0$_st:1654522198770$browser_client_id:el97kjl4$user_anon_id:anon_467984385155$dc_visit:13$ses_id:1654520385639%3Bexp-session$_pn:1%3Bexp-session$dc_event:7%3Bexp-session$dc_region:eu-central-1%3Bexp-session = os.getenv('_sn:13$_se:7$_ss:0$_st:1654522198770$browser_client_id:el97kjl4$user_anon_id:anon_467984385155$dc_visit:13$ses_id:1654520385639%3Bexp-session$_pn:1%3Bexp-session$dc_event:7%3Bexp-session$dc_region:eu-central-1%3Bexp-session')
-#_sn:13$_se:7$_ss:0$_st:1654522198770$browser_client_id:el97kjl4$user_anon_id:anon_467984385155$dc_visit:13$ses_id:1654520385639%3Bexp-session$_pn:1%3Bexp-session$dc_event:7%3Bexp-session$dc_region:eu-central-1%3Bexp-session; = os.getenv('_sn:13$_se:7$_ss:0$_st:1654522198770$browser_client_id:el97kjl4$user_anon_id:anon_467984385155$dc_visit:13$ses_id:1654520385639%3Bexp-session$_pn:1%3Bexp-session$dc_event:7%3Bexp-session$dc_region:eu-central-1%3Bexp-session;')
+
 def crawl_data_from_jobs_ch():
     """ this function crawl all result by given criteria
     and store returned result ot db and txt file"""
@@ -63,7 +60,6 @@ def crawl_data_from_jobs_ch():
     code=0
     start=time.time()
     today=str(datetime.today()).split(' ')[0]
-    #print(today)
     with open('info.csv','w') as file:
         file.write('')
 
@@ -86,19 +82,15 @@ def crawl_data_from_jobs_ch():
         with open('info.csv', mode='a', newline='') as job_file:
             jobs_writer = csv.writer(job_file, delimiter='|')
             for each_job_ind in range(len(result['documents'])):
-
                 title = prove_for_german_letter(result["documents"][each_job_ind]['title'])
-                # (title)
                 publication_date = result["documents"][0]['publication_date'].split('T')[0]
                 if publication_date !=today:
                     """ store only jobs from the current day"""
                     counter_older_jobs += 1
                     continue
-                # print(publication_date)
                 place = prove_for_german_letter(result["documents"][each_job_ind]['place'])
                 is_active = result["documents"][each_job_ind]['is_active']
                 link_ = result["documents"][each_job_ind]['_links']['detail_de']['href']
-                # jobs_writer.writerow([title.encode("utf-8")])
                 jobs_writer.writerow([title, publication_date, place, is_active, link_])
                 if bad_works(title):
                     continue
