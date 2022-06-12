@@ -146,5 +146,38 @@ function showText(){
     {% endfor %}
 </table>
 </div>
+
+<div>
+    <table>
+    <tr class="fir">
+        <th>Numer</th>
+        <th>Title</th>
+        <th>LINK</th>
+        <th>Date</th>
+        <th>Place</th>
+        <th>Employer</th>
+
+
+
+    </tr>
+    {%  for each in youtoore %}
+        <tr class="sec">
+            <td></td>
+            <th> <a href="{{ each.link }}">{{ each.title }}</a></th>
+            <td>
+                <a href="{{ each.link }}">YouToore</a>
+            </td>
+            <td class="date_">{{ each.publication_date}}</td>
+            <td>{{ each.place}}</td>
+            <td>
+                {{ each.employeer }}
+            </td>
+
+
+        </tr>
+
+    {% endfor %}
+</table>
+</div>
 </body>
 </html>

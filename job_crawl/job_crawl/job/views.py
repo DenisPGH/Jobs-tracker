@@ -4,7 +4,8 @@ from datetime import datetime
 from  datetime import datetime
 from job_crawl.job.crawl_jobs_ch import crawl_data_from_jobs_ch
 from job_crawl.job.crawl_jobs_scout import searcher_jobscout
-from job_crawl.job.models import Job, JobScout
+from job_crawl.job.crawl_youtoore import crawl_from_youtoore
+from job_crawl.job.models import Job, JobScout, JobYouToor
 
 
 class IndexPage(views.TemplateView):
@@ -17,10 +18,13 @@ class IndexPage(views.TemplateView):
         # self.object is a Profile instance
         jobs = Job.objects.all().order_by('title')
         jobscout = JobScout.objects.all().filter(publication_date=today).order_by('title')
+        # = JobYouToor.objects.all().filter(publication_date=today).order_by('title')
+        youtoore = JobYouToor.objects.all().order_by('-publication_date')
         context['jobs']=jobs
         context['today']=today
         context['jobscout']=jobscout
-        context['all']=len(jobs)+len(jobscout)
+        context['youtoore']=youtoore
+        context['all']=len(jobs)+len(jobscout)+len(youtoore)
 
 
         return context
@@ -31,6 +35,7 @@ def StoreNewJobs(request):
     """ this function start the crawling from Jobs.ch and Jobscout.ch and store the result to db"""
     crawl_data_from_jobs_ch()
     searcher_jobscout()
+    crawl_from_youtoore()
     return redirect('index')
 
 
