@@ -91,6 +91,7 @@ def searcher_jobscout():
             info=re.finditer(pattern,str(key))
             places=re.finditer(patter_town,str(value))
             title=''
+            title_origin=''
             link=''
             place=''
             employer=''
@@ -101,6 +102,7 @@ def searcher_jobscout():
                     counter_found_jobs+=1
                     link=str(each_data.group('link'))
                     title=str(prove_for_german_letter(each_data.group('name')))
+                    title_origin=each_data.group('name')
                 for each_place in places:
                     place = str(prove_for_german_letter(each_place.group('place')))
                     employer = str(prove_for_german_letter(each_place.group('employer')))
@@ -111,7 +113,7 @@ def searcher_jobscout():
                 if bad_works(title) or check_if_record_already_exist(job_for_prove):
                     continue
                 new_jobs=JobScout(
-                    title=title,
+                    title=title_origin,
                     publication_date=today,
                     link=prefix+link,
                     place=place,

@@ -18,13 +18,16 @@ class IndexPage(views.TemplateView):
         # self.object is a Profile instance
         jobs = Job.objects.all().order_by('title')
         jobscout = JobScout.objects.all().filter(publication_date=today).order_by('title')
-        # = JobYouToor.objects.all().filter(publication_date=today).order_by('title')
-        youtoore = JobYouToor.objects.all().order_by('-publication_date')
+        youtoore= JobYouToor.objects.all().filter(publication_date=today).order_by('title')
         context['jobs']=jobs
         context['today']=today
         context['jobscout']=jobscout
         context['youtoore']=youtoore
         context['all']=len(jobs)+len(jobscout)+len(youtoore)
+        context['jobs_ch_len']=len(jobs)
+        context['scout_ch_len']=len(jobscout)
+        context['youtoor_ch_len']=len(youtoore)
+        context['my_line']="-"*140
 
 
         return context

@@ -83,6 +83,7 @@ def crawl_data_from_jobs_ch():
             jobs_writer = csv.writer(job_file, delimiter='|')
             for each_job_ind in range(len(result['documents'])):
                 title = prove_for_german_letter(result["documents"][each_job_ind]['title'])
+                title_origin=result["documents"][each_job_ind]['title']
                 publication_date = result["documents"][0]['publication_date'].split('T')[0]
                 if publication_date !=today:
                     """ store only jobs from the current day"""
@@ -95,7 +96,7 @@ def crawl_data_from_jobs_ch():
                 if bad_works(title):
                     continue
                 new_job=Job(
-                    title=title,
+                    title=title_origin,
                     publication_date=publication_date,
                     place=place,
                     is_active=is_active,

@@ -7,6 +7,11 @@
         {#a {#}
         {#    color: white;#}
         {#    }#}
+        div.line_{
+            color: blue;
+            font-size: 25px;
+
+        }
         a:link {
             text-decoration: none;
             color: white;
@@ -51,7 +56,7 @@
 <body>
 
 <div>
-    <p>{{ today }} == {{ all }}</p>
+    <p> DATE: {{ today }} == {{ all }}  (Jobs.ch-> {{ jobs_ch_len }} || Jobscout.ch-> {{ scout_ch_len }} || Youtoore-> {{ youtoor_ch_len }})</p>
     <form class="mid" action="{% url 'crawl' %}">
             <button class="mid" id="stop">Jobs.ch* + Jobscout</button>
             {% csrf_token %}
@@ -112,6 +117,7 @@ function showText(){
     {% endfor %}
 </table>
 </div>
+<div class="line_"> {{ my_line }}</div>
 
 <div>
     <table>
@@ -147,6 +153,8 @@ function showText(){
 </table>
 </div>
 
+<div class="line_"> {{ my_line }}</div>
+
 <div>
     <table>
     <tr class="fir">
@@ -170,7 +178,7 @@ function showText(){
             <td class="date_">{{ each.publication_date}}</td>
             <td>{{ each.place}}</td>
             <td>
-                {{ each.employeer }}
+                {{ each.employer }}
             </td>
 
 

@@ -29,7 +29,7 @@ def bad_works(name):
                 'apotheker', 'automatiker', 'fage', 'gipser', 'sachbearbeit',
                  'wissenschaft','zimmerm','maler','metallbauer',
                  'fabe','buchhalter','koch','maurer','schreiner',
-                 'dachdecker','full stack','leiter']
+                 'dachdecker','full stack','leiter','koch']
     if any(word in name.lower() for word in bad_works):
         return True
     else:

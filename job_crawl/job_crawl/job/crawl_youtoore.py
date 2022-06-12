@@ -13,8 +13,8 @@ def crawl_from_youtoore():
 
     page_counter=0
     older_jobs_counter=0
+    today = str(datetime.today()).split(' ')[0]
     while True:
-        today=str(datetime.today()).split('T')[0]
         cookies = {
             'ARRAffinity': '136db78527ad94c9c44b111bf671d4b0183d9fa7e3f379d4d3855475997ea8ef',
             'ARRAffinitySameSite': '136db78527ad94c9c44b111bf671d4b0183d9fa7e3f379d4d3855475997ea8ef',
@@ -64,7 +64,7 @@ def crawl_from_youtoore():
                                  headers=headers, json=json_data)
         result = json.loads(response.text)
         code=response.status_code
-        if code !=200 or older_jobs_counter>=90:
+        if code !=200 or older_jobs_counter>30:
             break
         print(f"Page {page_counter}={code} --> {len(result['vacancies'])}")
         for each_job in range(len(result['vacancies'])):
@@ -73,8 +73,9 @@ def crawl_from_youtoore():
             date=result['vacancies'][each_job]['fetchTime'].split('T')[0]
             link_=result['vacancies'][each_job]['url']
             place=result['vacancies'][each_job]['city']
+            #print(date,today)
             if date !=today or bad_works(title):
-                older_jobs_counter+=1
+                older_jobs_counter += 1
                 continue
             new_job=JobYouToor(
                 title=title,
