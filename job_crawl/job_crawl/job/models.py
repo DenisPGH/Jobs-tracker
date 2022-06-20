@@ -5,6 +5,7 @@ from django.db import models
 class Job(models.Model):
     TITLE_MAX_LENGHT=200
     PLACE_MAX_LENGTH=50
+    EMPLOYEER_MAX_LENGTH=200
 
 
     title=models.CharField( max_length=TITLE_MAX_LENGHT)
@@ -12,6 +13,7 @@ class Job(models.Model):
     place=models.CharField(max_length=PLACE_MAX_LENGTH)
     is_active=models.BooleanField(default=True)
     link=models.URLField()
+    employeer = models.CharField(max_length=EMPLOYEER_MAX_LENGTH, null=True)
 
 
 class JobScout(models.Model):

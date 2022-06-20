@@ -58,7 +58,7 @@
 <div>
     <p> DATE: {{ today }} == {{ all }}  (Jobs.ch-> {{ jobs_ch_len }} || Jobscout.ch-> {{ scout_ch_len }} || Youtoore-> {{ youtoor_ch_len }})</p>
     <form class="mid" action="{% url 'crawl' %}">
-            <button class="mid" id="stop">Jobs.ch* + Jobscout</button>
+            <button class="mid" id="stop">Jobs.ch* + Jobscout + Youtoore</button>
             {% csrf_token %}
         </form>
         <h5> * it takes about 50 sec, then refresh the page </h5>
@@ -92,7 +92,7 @@ function showText(){
         <th>LINK</th>
         <th>Date</th>
         <th>Place</th>
-        <th>Active</th>
+        <th>Employer</th>
 
 
 
@@ -108,7 +108,7 @@ function showText(){
             <td class="date_">{{ each.publication_date}}</td>
             <td>{{ each.place}}</td>
             <td>
-                {{ each.is_active }}
+                {{ each.employeer }}
             </td>
 
 

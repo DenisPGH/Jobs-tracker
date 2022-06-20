@@ -1,7 +1,7 @@
 from datetime import datetime as dt
 import datetime
 
-from job_crawl.job.models import JobScout
+from job_crawl.job.models import JobScout, Job
 
 
 def prove_for_german_letter(text):
@@ -29,7 +29,9 @@ def bad_works(name):
                 'apotheker', 'automatiker', 'fage', 'gipser', 'sachbearbeit',
                  'wissenschaft','zimmerm','maler','metallbauer',
                  'fabe','buchhalter','koch','maurer','schreiner',
-                 'dachdecker','full stack','leiter','koch']
+                 'dachdecker','full stack','leiter','koch', 'polymechaniker','sap', 'arzt',
+                 'chef','finan','bussines','buchhaltung','mpa','sanit','business', 'hr',
+                 'betreuung','spengler', 'strassenbauer', 'jurist', 'manager', 'polizist']
     if any(word in name.lower() for word in bad_works):
         return True
     else:
@@ -74,9 +76,12 @@ def check_if_record_already_exist(job):
     today=str(dt.today()).split(" ")[0]
     all_record_from_yesterday=JobScout.objects.filter(publication_date=yesterday).order_by('title')
     all_record_from_today=JobScout.objects.filter(publication_date=today).order_by('title')
+    all_records_from_today_jobs_ch=Job.objects.all().order_by('title')
     list_strings_yesterday_jobs=[x.title+x.place+x.employeer for x in all_record_from_yesterday]
     list_strings_today_jobs=[y.title+y.place+y.employeer for y in all_record_from_today]
-    if binary_search(list_strings_yesterday_jobs,job) or binary_search(list_strings_today_jobs,job):
+    list_strings_today_jobs_ch=[z.title+z.place+z.employeer for z in all_records_from_today_jobs_ch]
+    if binary_search(list_strings_yesterday_jobs,job) or binary_search(list_strings_today_jobs,job)\
+            or binary_search(list_strings_today_jobs_ch,job):
         return True
     else:
         return False

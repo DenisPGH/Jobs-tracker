@@ -106,10 +106,11 @@ def searcher_jobscout():
                 for each_place in places:
                     place = str(prove_for_german_letter(each_place.group('place')))
                     employer = str(prove_for_german_letter(each_place.group('employer')))
+                    employeer_origin=each_place.group('employer')
 
 
                 obs_writer.writerow([title,link,place,employer])
-                job_for_prove=title+place+employer # for prove if already in db
+                job_for_prove=title_origin+place+employeer_origin # for prove if already in db, Jobs and Jobscout
                 if bad_works(title) or check_if_record_already_exist(job_for_prove):
                     continue
                 new_jobs=JobScout(
@@ -117,7 +118,7 @@ def searcher_jobscout():
                     publication_date=today,
                     link=prefix+link,
                     place=place,
-                    employeer=employer
+                    employeer=employeer_origin
 
                 )
                 new_jobs.save()
