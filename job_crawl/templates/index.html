@@ -56,7 +56,7 @@
 <body>
 
 <div>
-    <p> DATE: {{ today }} == {{ all }}  (Jobs.ch-> {{ jobs_ch_len }} || Jobscout.ch-> {{ scout_ch_len }} || Youtoore-> {{ youtoor_ch_len }})</p>
+    <p> DATE: {{ today }} == {{ all }}  (Jobs.ch-> {{ jobs_ch_len }} || Jobscout.ch-> {{ scout_ch_len }} || Youtoore-> {{ youtoor_ch_len }})        gesendete Bewerbungen=={{ bewerbungen_len }}</p>
     <form class="mid" action="{% url 'crawl' %}">
             <button class="mid" id="stop">Jobs.ch* + Jobscout + Youtoore</button>
             {% csrf_token %}

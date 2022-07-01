@@ -93,17 +93,17 @@ def check_if_record_already_exist(job):
 
 
 
-def fuction_for_store_applied_job(object_):
+def fuction_for_store_applied_job(object_to_store):
     """
     this function store the info for jobs, which I applied, by pressing the button store
     """
 
     new_bewerbung=Bewerbungen(
-        title=object_.title,
-        place=object_.place,
+        title=object_to_store.title,
+        place=object_to_store.place,
         publication_date=dt.today(),
-        employer=object_.employeer,
-        link=object_.link,
+        employer=object_to_store.employeer,
+        link=object_to_store.link,
         date_apply=dt.now()
     )
     new_bewerbung.save()

@@ -30,6 +30,7 @@ class IndexPage(views.TemplateView):
         context['jobs_ch_len']=len(jobs)
         context['scout_ch_len']=len(jobscout)
         context['youtoor_ch_len']=len(youtoore)
+        context['bewerbungen_len']=len(bewerbungen)
         context['my_line']="-"*140
 
 
