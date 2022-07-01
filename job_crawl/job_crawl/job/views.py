@@ -5,6 +5,7 @@ from  datetime import datetime
 from job_crawl.job.crawl_jobs_ch import crawl_data_from_jobs_ch
 from job_crawl.job.crawl_jobs_scout import searcher_jobscout
 from job_crawl.job.crawl_youtoore import crawl_from_youtoore
+from job_crawl.job.helper import fuction_for_store_applied_job
 from job_crawl.job.models import Job, JobScout, JobYouToor, Bewerbungen
 
 
@@ -51,11 +52,33 @@ def StoreNewJobScout(request):
 
 
 
-def store_to_bewerbungen(requests,pk):
+def store_to_bewerbungen_jobs_ch(requests,pk):
     """
-    function to store applied job in different table in db
+    function to store applied job ch in different table in db
     """
-    print(pk)
+    #print(pk)
+    applied_job = Job.objects.get(pk=pk)
+    fuction_for_store_applied_job(applied_job)
+
+    return redirect('index')
+
+
+def store_to_bewerbungen_jobs_scout(requests,pk):
+    """
+    function to store applied job from jobs scout in different table in db
+    """
+    applied_job = JobScout.objects.get(pk=pk)
+    fuction_for_store_applied_job(applied_job)
+
+    return redirect('index')
+
+
+def store_to_bewerbungen_youtore(requests,pk):
+    """
+    function to store applied job youtoore in different table in db
+    """
+    applied_job = JobYouToor.objects.get(pk=pk)
+    fuction_for_store_applied_job(applied_job)
 
     return redirect('index')
 

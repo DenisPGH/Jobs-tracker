@@ -38,7 +38,7 @@ class JobYouToor(models.Model):
     title=models.CharField( max_length=TITLE_MAX_LENGHT)
     publication_date = models.DateField()
     place=models.CharField(max_length=PLACE_MAX_LENGTH)
-    employer=models.CharField(max_length=EMPLOYEER_MAX_LENGTH)
+    employeer=models.CharField(max_length=EMPLOYEER_MAX_LENGTH)
     link=models.URLField(null=True)
 
 

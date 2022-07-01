@@ -107,7 +107,7 @@ function showText(){
             </td>
 {#            <td class="date_">{{ each.publication_date}}</td>#}
             <td class="date_">
-                 <form class="l" method='post' action="{% url 'store' each.pk %}">
+                 <form class="l" method='post' action="{% url 'jobs_ch' each.pk %}">
                 {{ form }}
                 <button class="l"> Store </button>
                 {% csrf_token %}
@@ -149,7 +149,7 @@ function showText(){
             </td>
 {#            <td class="date_">{{ each.publication_date}}</td>#}
             <td class="date_">
-                 <form class="l" method='post' action="{% url 'store' each.pk %}">
+                 <form class="l" method='post' action="{% url 'jobs_scout' each.pk %}">
                 {{ form }}
                 <button class="l"> Store </button>
                 {% csrf_token %}
@@ -190,7 +190,7 @@ function showText(){
             </td>
 {#            <td class="date_">{{ each.publication_date}}</td>#}
             <td class="date_">
-                 <form class="l" method='post' action="{% url 'store' each.pk %}">
+                 <form class="l" method='post' action="{% url 'jobs_youtore' each.pk %}">
                 {{ form }}
                 <button class="l"> Store </button>
                 {% csrf_token %}

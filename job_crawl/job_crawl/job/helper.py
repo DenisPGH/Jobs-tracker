@@ -1,7 +1,7 @@
 from datetime import datetime as dt
 import datetime
 
-from job_crawl.job.models import JobScout, Job
+from job_crawl.job.models import JobScout, Job, Bewerbungen
 
 
 def prove_for_german_letter(text):
@@ -93,6 +93,20 @@ def check_if_record_already_exist(job):
 
 
 
+def fuction_for_store_applied_job(object_):
+    """
+    this function store the info for jobs, which I applied, by pressing the button store
+    """
+
+    new_bewerbung=Bewerbungen(
+        title=object_.title,
+        place=object_.place,
+        publication_date=dt.today(),
+        employer=object_.employeer,
+        link=object_.link,
+        date_apply=dt.now()
+    )
+    new_bewerbung.save()
 
 
 
