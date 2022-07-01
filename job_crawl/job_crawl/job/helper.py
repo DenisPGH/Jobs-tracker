@@ -34,7 +34,7 @@ def bad_works(name):
                  'betreuung','spengler', 'strassenbauer', 'jurist', 'manager', 'polizist',
                  'demenz', 'director','hebamme','gärtner','direktor','logistik','betreuer',
                  'cnc','nachtwach','sps', 'laborant','immobilien', 'pharma', 'professor',
-                 'heizung']
+                 'heizung','media', 'kredit', 'empfang','bodenleger']
     if any(word in name.lower() for word in bad_works):
         return True
     else:
@@ -104,7 +104,8 @@ def fuction_for_store_applied_job(object_to_store):
         publication_date=dt.today(),
         employer=object_to_store.employeer,
         link=object_to_store.link,
-        date_apply=dt.now()
+        date_apply=dt.now(),
+        apply=True,
     )
     new_bewerbung.save()
 

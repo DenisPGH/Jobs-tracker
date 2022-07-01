@@ -109,7 +109,13 @@ function showText(){
             <td class="date_">
                  <form class="l" method='post' action="{% url 'jobs_ch' each.pk %}">
                 {{ form }}
-                <button class="l"> Store </button>
+                <button class="l">
+                    {% if each.apply %}
+                    Bewerbung
+                    {% else %}
+                    Store
+                    {% endif %}
+                     </button>
                 {% csrf_token %}
             </form>
             </td>
@@ -151,7 +157,13 @@ function showText(){
             <td class="date_">
                  <form class="l" method='post' action="{% url 'jobs_scout' each.pk %}">
                 {{ form }}
-                <button class="l"> Store </button>
+                <button class="l">
+                    {% if each.apply %}
+                    Bewerbung
+                    {% else %}
+                    Store
+                    {% endif %}
+                </button>
                 {% csrf_token %}
             </form>
             <td>{{ each.place}}</td>
@@ -192,7 +204,13 @@ function showText(){
             <td class="date_">
                  <form class="l" method='post' action="{% url 'jobs_youtore' each.pk %}">
                 {{ form }}
-                <button class="l"> Store </button>
+                <button class="l">
+                {% if each.apply %}
+                    Bewerbung
+                    {% else %}
+                    Store
+                    {% endif %}
+                </button>
                 {% csrf_token %}
             </form>
             <td>{{ each.place}}</td>

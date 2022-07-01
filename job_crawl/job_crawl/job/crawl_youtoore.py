@@ -80,7 +80,7 @@ def crawl_from_youtoore():
             new_job=JobYouToor(
                 title=title,
                 publication_date=date,
-                employer=employer,
+                employeer=employer,
                 place=place,
                 link=link_
 
