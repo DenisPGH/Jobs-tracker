@@ -34,7 +34,8 @@ def bad_works(name):
                  'betreuung','spengler', 'strassenbauer', 'jurist', 'manager', 'polizist',
                  'demenz', 'director','hebamme','gärtner','direktor','logistik','betreuer',
                  'cnc','nachtwach','sps', 'laborant','immobilien', 'pharma', 'professor',
-                 'heizung','media', 'kredit', 'empfang','bodenleger']
+                 'heizung','media', 'kredit', 'empfang','bodenleger', 'kosmetik', 'redaktion',
+                 'solarteur']
     if any(word in name.lower() for word in bad_works):
         return True
     else:

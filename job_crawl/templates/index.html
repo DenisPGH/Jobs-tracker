@@ -108,9 +108,8 @@ function showText(){
 {#            <td class="date_">{{ each.publication_date}}</td>#}
             <td class="date_">
                  <form class="l" method='post' action="{% url 'jobs_ch' each.pk %}">
-                {{ form }}
                 <button class="l">
-                    {% if each.apply %}
+                    {% if each.apply  %}
                     Bewerbung
                     {% else %}
                     Store
@@ -156,14 +155,12 @@ function showText(){
 {#            <td class="date_">{{ each.publication_date}}</td>#}
             <td class="date_">
                  <form class="l" method='post' action="{% url 'jobs_scout' each.pk %}">
-                {{ form }}
-                <button class="l">
-                    {% if each.apply %}
-                    Bewerbung
+                    {% if each.apply == True %}
+                       <button class="l"> Bewerbung</button>
                     {% else %}
-                    Store
+                     <button class="l"> Store</button>
                     {% endif %}
-                </button>
+
                 {% csrf_token %}
             </form>
             <td>{{ each.place}}</td>
@@ -203,7 +200,6 @@ function showText(){
 {#            <td class="date_">{{ each.publication_date}}</td>#}
             <td class="date_">
                  <form class="l" method='post' action="{% url 'jobs_youtore' each.pk %}">
-                {{ form }}
                 <button class="l">
                 {% if each.apply %}
                     Bewerbung
@@ -236,6 +232,7 @@ function showText(){
         <th>Date APPLY</th>
         <th>Place</th>
         <th>Employer</th>
+        <th>Status</th>
 
 
 
@@ -252,6 +249,7 @@ function showText(){
             <td>
                 {{ each.employer }}
             </td>
+            <td>{{ each.apply }}</td>
 
 
         </tr>
