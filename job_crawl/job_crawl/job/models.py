@@ -34,10 +34,28 @@ class JobYouToor(models.Model):
     TITLE_MAX_LENGHT=200
     PLACE_MAX_LENGTH=50
     EMPLOYEER_MAX_LENGTH=100
+
     title=models.CharField( max_length=TITLE_MAX_LENGHT)
     publication_date = models.DateField()
     place=models.CharField(max_length=PLACE_MAX_LENGTH)
     employer=models.CharField(max_length=EMPLOYEER_MAX_LENGTH)
     link=models.URLField(null=True)
+
+
+
+
+
+class Bewerbungen(models.Model):
+    TITLE_MAX_LENGHT=200
+    PLACE_MAX_LENGTH=50
+    EMPLOYEER_MAX_LENGTH=100
+
+    title=models.CharField( max_length=TITLE_MAX_LENGHT)
+    publication_date = models.DateField()
+    place=models.CharField(max_length=PLACE_MAX_LENGTH)
+    employer=models.CharField(max_length=EMPLOYEER_MAX_LENGTH)
+    link=models.URLField(null=True)
+    date_apply=models.DateTimeField(null=True)
+    apply=models.BooleanField(default=False)
 
 

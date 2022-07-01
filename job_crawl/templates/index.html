@@ -105,7 +105,14 @@ function showText(){
             <td>
                 <a href="{{ each.link }}">Jobs.ch</a>
             </td>
-            <td class="date_">{{ each.publication_date}}</td>
+{#            <td class="date_">{{ each.publication_date}}</td>#}
+            <td class="date_">
+                 <form class="l" method='post' action="{% url 'store' each.pk %}">
+                {{ form }}
+                <button class="l"> Store </button>
+                {% csrf_token %}
+            </form>
+            </td>
             <td>{{ each.place}}</td>
             <td>
                 {{ each.employeer }}
@@ -140,7 +147,13 @@ function showText(){
             <td>
                 <a href="{{ each.link }}">Jobscout</a>
             </td>
-            <td class="date_">{{ each.publication_date}}</td>
+{#            <td class="date_">{{ each.publication_date}}</td>#}
+            <td class="date_">
+                 <form class="l" method='post' action="{% url 'store' each.pk %}">
+                {{ form }}
+                <button class="l"> Store </button>
+                {% csrf_token %}
+            </form>
             <td>{{ each.place}}</td>
             <td>
                 {{ each.employeer }}
@@ -175,7 +188,13 @@ function showText(){
             <td>
                 <a href="{{ each.link }}">YouToore</a>
             </td>
-            <td class="date_">{{ each.publication_date}}</td>
+{#            <td class="date_">{{ each.publication_date}}</td>#}
+            <td class="date_">
+                 <form class="l" method='post' action="{% url 'store' each.pk %}">
+                {{ form }}
+                <button class="l"> Store </button>
+                {% csrf_token %}
+            </form>
             <td>{{ each.place}}</td>
             <td>
                 {{ each.employer }}
@@ -187,5 +206,43 @@ function showText(){
     {% endfor %}
 </table>
 </div>
+
+<div class="line_"> {{ my_line }}</div>
+
+<div>
+    <table>
+    <tr class="fir">
+        <th>Numer</th>
+        <th>Title</th>
+        <th>LINK</th>
+        <th>Date APPLY</th>
+        <th>Place</th>
+        <th>Employer</th>
+
+
+
+    </tr>
+    {%  for each in bewerbungen %}
+        <tr class="sec">
+            <td></td>
+            <th> <a href="{{ each.link }}">{{ each.title }}</a></th>
+            <td>
+                <a href="{{ each.link }}">YouToore</a>
+            </td>
+            <td class="date_">{{ each.date_apply}}</td>
+            <td>{{ each.place}}</td>
+            <td>
+                {{ each.employer }}
+            </td>
+
+
+        </tr>
+
+    {% endfor %}
+</table>
+</div>
+
+
+
 </body>
 </html>

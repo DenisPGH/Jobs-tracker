@@ -24,14 +24,17 @@ def bad_works(name):
     if has a bad work return true and dont save in db
     else return false, it will be save
     """
-    bad_works = ['pflege', 'pflege', 'dipl.', 'sachberater',
-                 'sozial', 'sozial', 'geruestbauer', 'geruestbauer',
+    bad_works = ['pflege', 'dipl.', 'sachberater',
+                'sozial', 'geruestbauer', 'geruestbauer',
                 'apotheker', 'automatiker', 'fage', 'gipser', 'sachbearbeit',
                  'wissenschaft','zimmerm','maler','metallbauer',
                  'fabe','buchhalter','koch','maurer','schreiner',
                  'dachdecker','full stack','leiter','koch', 'polymechaniker','sap', 'arzt',
                  'chef','finan','bussines','buchhaltung','mpa','sanit','business', 'hr',
-                 'betreuung','spengler', 'strassenbauer', 'jurist', 'manager', 'polizist']
+                 'betreuung','spengler', 'strassenbauer', 'jurist', 'manager', 'polizist',
+                 'demenz', 'director','hebamme','gärtner','direktor','logistik','betreuer',
+                 'cnc','nachtwach','sps', 'laborant','immobilien', 'pharma', 'professor',
+                 'heizung']
     if any(word in name.lower() for word in bad_works):
         return True
     else:
