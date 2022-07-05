@@ -92,7 +92,12 @@ def crawl_data_from_jobs_ch():
                 place = prove_for_german_letter(result["documents"][each_job_ind]['place'])
                 is_active = result["documents"][each_job_ind]['is_active']
                 link_ = result["documents"][each_job_ind]['_links']['detail_de']['href']
-                employeer=result['documents'][each_job_ind]['company_name']
+                #print(result['documents'][each_job_ind].keys())
+                try:
+                    employeer=result['documents'][each_job_ind]['company_name']
+                except:
+                    employeer="error"
+                #employeer=result['documents'][each_job_ind]['company_id']
                 #print(employeer)
                 jobs_writer.writerow([title, publication_date, place, is_active, link_])
                 if bad_works(title):
