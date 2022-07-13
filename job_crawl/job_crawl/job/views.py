@@ -8,6 +8,9 @@ from job_crawl.job.crawl_youtoore import crawl_from_youtoore
 from job_crawl.job.helper import fuction_for_store_applied_job
 from job_crawl.job.models import Job, JobScout, JobYouToor, Bewerbungen
 
+from threading import Thread
+import time
+
 
 class IndexPage(views.TemplateView):
     """ start function, return context data for show in html"""
@@ -40,9 +43,18 @@ class IndexPage(views.TemplateView):
 
 def StoreNewJobs(request):
     """ this function start the crawling from Jobs.ch and Jobscout.ch and store the result to db"""
-    crawl_data_from_jobs_ch()
-    crawl_from_youtoore()
-    searcher_jobscout()
+    # crawl_data_from_jobs_ch()
+    # crawl_from_youtoore()
+    # searcher_jobscout()
+    start = time.time()
+    Thread(target=crawl_data_from_jobs_ch).start()
+    Thread(target=crawl_from_youtoore).start()
+    Thread(target=searcher_jobscout).start()
+
+    print(f"END OF SEARCH=== {time.time()-start:.3f} sec")
+
+
+
     return redirect('index')
 
 
