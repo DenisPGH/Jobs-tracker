@@ -2,7 +2,7 @@ import json
 from datetime import datetime
 import requests
 import time
-from job_crawl.job.helper import bad_works
+from job_crawl.job.helper import bad_works, wished_works
 from job_crawl.job.models import JobYouToor
 
 
@@ -66,7 +66,9 @@ def crawl_from_youtoore():
         code=response.status_code
         if code !=200 or older_jobs_counter>30:
             break
-        print(f"Page {page_counter}={code} --> {len(result['vacancies'])}")
+        print(f"Youtoore Page {page_counter}={code} --> {len(result['vacancies'])}")
+        if len(result['vacancies'])==0:
+            break
         for each_job in range(len(result['vacancies'])):
             employer=result['vacancies'][each_job]['company']['ident']
             title=result['vacancies'][each_job]['jobTitle']
@@ -74,18 +76,20 @@ def crawl_from_youtoore():
             link_=result['vacancies'][each_job]['url']
             place=result['vacancies'][each_job]['city']
             #print(date,today)
-            if date !=today or bad_works(title):
-                older_jobs_counter += 1
-                continue
-            new_job=JobYouToor(
-                title=title,
-                publication_date=date,
-                employeer=employer,
-                place=place,
-                link=link_
+            # if date !=today or bad_works(title):
+            #     older_jobs_counter += 1
+            #     continue
 
-            )
-            new_job.save()
+            if wished_works(title):
+                new_job=JobYouToor(
+                    title=title,
+                    publication_date=date,
+                    employeer=employer,
+                    place=place,
+                    link=link_
+
+                )
+                new_job.save()
         page_counter += 1
 
     print(f"JobYouToore== {time.time()-start:.2f}")

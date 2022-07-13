@@ -35,13 +35,27 @@ def bad_works(name):
                  'demenz', 'director','hebamme','gärtner','direktor','logistik','betreuer',
                  'cnc','nachtwach','sps', 'laborant','immobilien', 'pharma', 'professor',
                  'heizung','media', 'kredit', 'empfang','bodenleger', 'kosmetik', 'redaktion',
-                 'solarteur','solarmonteur', 'scrum', 'mode','rezeptionist', 'verwaltung']
+                 'solarteur','solarmonteur', 'scrum', 'mode','rezeptionist', 'verwaltung',
+                 'biolog', 'engel der nacht','fachfrau/mann gesundheit','fachperson gesundheit',
+                 'landschaftsgärtner', 'geolog','radio','service','stahl','anwalt','bauarbeiter',
+                 'electrik', 'elektro','kaufmännische','kauf','verkäufer','berater','bau',
+                 'redaktor','verk','drogist','abkant','chauffeur','zeichner','lager','system',
+                 'administrator','devops','receptionist','hauswirtschaft']
     if any(word in name.lower() for word in bad_works):
         return True
     else:
         return False
 
 
+
+
+def wished_works(work):
+    good_works=['masseur','physio','entwickler']
+
+    if any(word in work.lower() for word in good_works):
+        return True
+    else:
+        return False
 
 
 

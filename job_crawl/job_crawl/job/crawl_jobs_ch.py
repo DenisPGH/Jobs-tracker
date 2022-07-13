@@ -3,7 +3,7 @@ import csv
 import requests
 import time
 from datetime import datetime
-from job_crawl.job.helper import prove_for_german_letter, bad_works
+from job_crawl.job.helper import prove_for_german_letter, bad_works, wished_works
 from job_crawl.job.models import Job
 
 
@@ -97,17 +97,19 @@ def crawl_data_from_jobs_ch():
                 except:
                     employeer="error"
                 jobs_writer.writerow([title, publication_date, place, is_active, link_])
-                if bad_works(title):
-                    continue
-                new_job=Job(
-                    title=title_origin,
-                    publication_date=publication_date,
-                    place=place,
-                    is_active=is_active,
-                    link=link_,
-                    employeer=employeer
-                )
-                new_job.save()
+                # if bad_works(title):
+                #     continue
+
+                if wished_works(title):
+                    new_job=Job(
+                        title=title_origin,
+                        publication_date=publication_date,
+                        place=place,
+                        is_active=is_active,
+                        link=link_,
+                        employeer=employeer
+                    )
+                    new_job.save()
 
 
 

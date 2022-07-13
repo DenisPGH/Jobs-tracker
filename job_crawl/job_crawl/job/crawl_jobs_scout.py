@@ -10,7 +10,7 @@ import time
 
 
 
-from job_crawl.job.helper import prove_for_german_letter, bad_works, check_if_record_already_exist
+from job_crawl.job.helper import prove_for_german_letter, bad_works, check_if_record_already_exist, wished_works
 from job_crawl.job.models import JobScout
 
 pattern=r'href="(?P<link>([^@]+/))"[^@]+ title="(?P<name>([^@]+))"'
@@ -20,8 +20,8 @@ patter_town=r'<span>(?P<employer>([^@]+))</[^@]+>, <span>(?P<place>([^@]+))</spa
 
 def searcher_jobscout():
     start = time.time()
-    # del_table=JobScout.objects.all()
-    # del_table.delete()
+    del_table=JobScout.objects.all()
+    del_table.delete()
     cookies = {
         'ASID': '02dc0aeb-6173-4a16-b9fd-90c6af5f4285|20220520|20',
         'CONSENTMGR': 'c1:1%7Cc4:1%7Cc2:0%7Cc3:0%7Cc5:0%7Cc6:0%7Cc7:0%7Cc8:0%7Cc9:0%7Cc10:0%7Cc11:0%7Cc12:0%7Cc13:0%7Cc14:0%7Cc15:0%7Cts:1653026236856%7Cconsent:true',
@@ -111,17 +111,19 @@ def searcher_jobscout():
 
                 obs_writer.writerow([title,link,place,employer])
                 job_for_prove=title_origin+place+employeer_origin # for prove if already in db, Jobs and Jobscout
-                if bad_works(title) or check_if_record_already_exist(job_for_prove):
-                    continue
-                new_jobs=JobScout(
-                    title=title_origin,
-                    publication_date=today,
-                    link=prefix+link,
-                    place=place,
-                    employeer=employeer_origin
+                # if bad_works(title) or check_if_record_already_exist(job_for_prove):
+                #     continue
 
-                )
-                new_jobs.save()
+                if wished_works(title):
+                    new_jobs=JobScout(
+                        title=title_origin,
+                        publication_date=today,
+                        link=prefix+link,
+                        place=place,
+                        employeer=employeer_origin
+
+                    )
+                    new_jobs.save()
 
 
 
