@@ -1,3 +1,5 @@
+import asyncio
+
 from django.shortcuts import render, redirect
 from django.views import generic as views
 from datetime import datetime
@@ -44,13 +46,20 @@ class IndexPage(views.TemplateView):
 def StoreNewJobs(request):
     """ this function start the crawling from Jobs.ch and Jobscout.ch and store the result to db"""
     start = time.time()
-    crawl_data_from_jobs_ch()
-    crawl_from_youtoore()
-    searcher_jobscout()
+    #crawl_data_from_jobs_ch()
+    # crawl_from_youtoore()
+    # searcher_jobscout()
 
-    # Thread(target=crawl_data_from_jobs_ch).start()
-    # Thread(target=crawl_from_youtoore).start()
-    # Thread(target=searcher_jobscout).start()
+
+    #asyncio.run(crawl_data_from_jobs_ch())
+    # asyncio.run(crawl_from_youtoore())
+    # asyncio.run(searcher_jobscout())
+
+
+
+    Thread(target=crawl_data_from_jobs_ch).start()
+    Thread(target=crawl_from_youtoore).start()
+    Thread(target=searcher_jobscout).start()
 
     print(f"END OF SEARCH=== {time.time()-start:.3f} sec")
 

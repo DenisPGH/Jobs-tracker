@@ -56,7 +56,8 @@
 <body>
 
 <div>
-    <p> DATE: {{ today }} == {{ all }}  (Jobs.ch-> {{ jobs_ch_len }} || Jobscout.ch-> {{ scout_ch_len }} || Youtoore-> {{ youtoor_ch_len }})        gesendete Bewerbungen=={{ bewerbungen_len }}</p>
+{#    <p> DATE: {{ today }} == {{ all }}  (Jobs.ch-> {{ jobs_ch_len }} || Jobscout.ch-> {{ scout_ch_len }} || Youtoore-> {{ youtoor_ch_len }})        gesendete Bewerbungen=={{ bewerbungen_len }}</p>#}
+    <p> until TODAY: {{ today }} == {{ all }},----  gesendete Bewerbungen=={{ bewerbungen_len }}</p>
     <form class="mid" action="{% url 'crawl' %}">
             <button class="mid" id="stop">Jobs.ch* + Jobscout + Youtoore</button>
             {% csrf_token %}
@@ -133,101 +134,101 @@ function showText(){
 </div>
 <div class="line_"> {{ my_line }}</div>
 
-<div>
-    <table>
-    <tr class="fir">
-        <th>Numer</th>
-        <th>Title</th>
-        <th>LINK</th>
-        <th>Date</th>
-        <th>Place</th>
-        <th>Employer</th>
-        <th>Store</th>
-
-
-
-    </tr>
-    {%  for each in jobscout %}
-        <tr class="sec">
-            <td></td>
-            <th> <a href="{{ each.link }}">{{ each.title }}</a></th>
+{#<div>#}
+{#    <table>#}
+{#    <tr class="fir">#}
+{#        <th>Numer</th>#}
+{#        <th>Title</th>#}
+{#        <th>LINK</th>#}
+{#        <th>Date</th>#}
+{#        <th>Place</th>#}
+{#        <th>Employer</th>#}
+{#        <th>Store</th>#}
+{##}
+{##}
+{##}
+{#    </tr>#}
+{#    {%  for each in jobscout %}#}
+{#        <tr class="sec">#}
+{#            <td></td>#}
+{#            <th> <a href="{{ each.link }}">{{ each.title }}</a></th>#}
 {#            <th>{{ each.title }}</th>#}
-            <td>
-                <a href="{{ each.link }}">Jobscout</a>
-            </td>
-            <td class="date_">{{ each.publication_date}}</td>
-
-            <td>{{ each.place}}</td>
-            <td>
-                {{ each.employeer }}
-            </td>
-         <td class="date_">
-                 <form class="l" method='post' action="{% url 'jobs_scout' each.pk %}">
-                    {% if each.apply == True %}
-                       <button class="l"> Bewerbung</button>
-                    {% else %}
-                     <button class="l"> Store</button>
-                    {% endif %}
-
-                {% csrf_token %}
-            </form>
-         </td>
-
-
-        </tr>
-
-    {% endfor %}
-</table>
-</div>
+{#            <td>#}
+{#                <a href="{{ each.link }}">Jobscout</a>#}
+{#            </td>#}
+{#            <td class="date_">{{ each.publication_date}}</td>#}
+{##}
+{#            <td>{{ each.place}}</td>#}
+{#            <td>#}
+{#                {{ each.employeer }}#}
+{#            </td>#}
+{#         <td class="date_">#}
+{#                 <form class="l" method='post' action="{% url 'jobs_scout' each.pk %}">#}
+{#                    {% if each.apply == True %}#}
+{#                       <button class="l"> Bewerbung</button>#}
+{#                    {% else %}#}
+{#                     <button class="l"> Store</button>#}
+{#                    {% endif %}#}
+{##}
+{#                {% csrf_token %}#}
+{#            </form>#}
+{#         </td>#}
+{##}
+{##}
+{#        </tr>#}
+{##}
+{#    {% endfor %}#}
+{#</table>#}
+{#</div>#}
 
 <div class="line_"> {{ my_line }}</div>
 
-<div>
-    <table>
-    <tr class="fir">
-        <th>Numer</th>
-        <th>Title</th>
-        <th>LINK</th>
-        <th>Date</th>
-        <th>Place</th>
-        <th>Employeer</th>
-        <th>Store</th>
-
-
-
-    </tr>
-    {%  for each in youtoore %}
-        <tr class="sec">
-            <td></td>
-            <th> <a href="{{ each.link }}">{{ each.title }}</a></th>
-            <td>
-                <a href="{{ each.link }}">YouToore</a>
-            </td>
-            <td class="date_">{{ each.publication_date}}</td>
-
-            <td>{{ each.place}}</td>
-            <td>
-                {{ each.employeer }}
-            </td>
-        <td class="date_">
-                 <form class="l" method='post' action="{% url 'jobs_youtore' each.pk %}">
-                <button class="l">
-                {% if each.apply %}
-                    Bewerbung
-                    {% else %}
-                    Store
-                    {% endif %}
-                </button>
-                {% csrf_token %}
-            </form>
-        </td>
-
-
-        </tr>
-
-    {% endfor %}
-</table>
-</div>
+{#<div>#}
+{#    <table>#}
+{#    <tr class="fir">#}
+{#        <th>Numer</th>#}
+{#        <th>Title</th>#}
+{#        <th>LINK</th>#}
+{#        <th>Date</th>#}
+{#        <th>Place</th>#}
+{#        <th>Employeer</th>#}
+{#        <th>Store</th>#}
+{##}
+{##}
+{##}
+{#    </tr>#}
+{#    {%  for each in youtoore %}#}
+{#        <tr class="sec">#}
+{#            <td></td>#}
+{#            <th> <a href="{{ each.link }}">{{ each.title }}</a></th>#}
+{#            <td>#}
+{#                <a href="{{ each.link }}">YouToore</a>#}
+{#            </td>#}
+{#            <td class="date_">{{ each.publication_date}}</td>#}
+{##}
+{#            <td>{{ each.place}}</td>#}
+{#            <td>#}
+{#                {{ each.employeer }}#}
+{#            </td>#}
+{#        <td class="date_">#}
+{#                 <form class="l" method='post' action="{% url 'jobs_youtore' each.pk %}">#}
+{#                <button class="l">#}
+{#                {% if each.apply %}#}
+{#                    Bewerbung#}
+{#                    {% else %}#}
+{#                    Store#}
+{#                    {% endif %}#}
+{#                </button>#}
+{#                {% csrf_token %}#}
+{#            </form>#}
+{#        </td>#}
+{##}
+{##}
+{#        </tr>#}
+{##}
+{#    {% endfor %}#}
+{#</table>#}
+{#</div>#}
 
 <div class="line_"> {{ my_line }}</div>
 
