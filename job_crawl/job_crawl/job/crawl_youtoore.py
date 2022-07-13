@@ -3,7 +3,7 @@ from datetime import datetime
 import requests
 import time
 from job_crawl.job.helper import bad_works, wished_works
-from job_crawl.job.models import JobYouToor
+from job_crawl.job.models import JobYouToor, Job
 
 
 def crawl_from_youtoore():
@@ -81,13 +81,23 @@ def crawl_from_youtoore():
             #     continue
 
             if wished_works(title):
-                new_job=JobYouToor(
+                # new_job=JobYouToor(
+                #     title=title,
+                #     publication_date=date,
+                #     employeer=employer,
+                #     place=place,
+                #     link=link_
+                #
+                # )
+                # new_job.save()
+
+                new_job = Job(
                     title=title,
                     publication_date=date,
-                    employeer=employer,
                     place=place,
-                    link=link_
-
+                    is_active=True,
+                    link=link_,
+                    employeer=employer
                 )
                 new_job.save()
         page_counter += 1

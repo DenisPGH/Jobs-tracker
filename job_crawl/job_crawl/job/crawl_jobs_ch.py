@@ -81,9 +81,10 @@ def crawl_data_from_jobs_ch():
         counter+=1
         if counter >50:
             break
-        with open('info.csv', mode='a', newline='') as job_file:
-            jobs_writer = csv.writer(job_file, delimiter='|')
-            for each_job_ind in range(len(result['documents'])):
+        # with open('info.csv', mode='a', newline='') as job_file:
+        #     jobs_writer = csv.writer(job_file, delimiter='|')
+
+        for each_job_ind in range(len(result['documents'])):
                 title = prove_for_german_letter(result["documents"][each_job_ind]['title'])
                 title_origin=result["documents"][each_job_ind]['title']
                 publication_date = result["documents"][0]['publication_date'].split('T')[0]
@@ -98,7 +99,7 @@ def crawl_data_from_jobs_ch():
                     employeer=result['documents'][each_job_ind]['company_name']
                 except:
                     employeer="error"
-                jobs_writer.writerow([title, publication_date, place, is_active, link_])
+                #jobs_writer.writerow([title, publication_date, place, is_active, link_])
                 # if bad_works(title):
                 #     continue
 

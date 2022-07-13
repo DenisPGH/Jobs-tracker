@@ -11,7 +11,7 @@ import time
 
 
 from job_crawl.job.helper import prove_for_german_letter, bad_works, check_if_record_already_exist, wished_works
-from job_crawl.job.models import JobScout
+from job_crawl.job.models import JobScout, Job
 
 pattern=r'href="(?P<link>([^@]+/))"[^@]+ title="(?P<name>([^@]+))"'
 patter_town=r'<span>(?P<employer>([^@]+))</[^@]+>, <span>(?P<place>([^@]+))</span>'
@@ -96,34 +96,44 @@ def searcher_jobscout():
             place=''
             employer=''
 
-            with open('result_scout.csv', mode='a', newline='') as job:
-                obs_writer = csv.writer(job, delimiter='|')
-                for each_data in info:
-                    counter_found_jobs+=1
-                    link=str(each_data.group('link'))
-                    title=str(prove_for_german_letter(each_data.group('name')))
-                    title_origin=each_data.group('name')
-                for each_place in places:
-                    place = str(prove_for_german_letter(each_place.group('place')))
-                    employer = str(prove_for_german_letter(each_place.group('employer')))
-                    employeer_origin=each_place.group('employer')
+            # with open('result_scout.csv', mode='a', newline='') as job:
+            #     obs_writer = csv.writer(job, delimiter='|')
+            for each_data in info:
+                counter_found_jobs+=1
+                link=str(each_data.group('link'))
+                title=str(prove_for_german_letter(each_data.group('name')))
+                title_origin=each_data.group('name')
+            for each_place in places:
+                place = str(prove_for_german_letter(each_place.group('place')))
+                employer = str(prove_for_german_letter(each_place.group('employer')))
+                employeer_origin=each_place.group('employer')
 
 
-                obs_writer.writerow([title,link,place,employer])
-                job_for_prove=title_origin+place+employeer_origin # for prove if already in db, Jobs and Jobscout
+                #obs_writer.writerow([title,link,place,employer])
+                #job_for_prove=title_origin+place+employeer_origin # for prove if already in db, Jobs and Jobscout
                 # if bad_works(title) or check_if_record_already_exist(job_for_prove):
                 #     continue
 
                 if wished_works(title):
-                    new_jobs=JobScout(
+                    # new_jobs=JobScout(
+                    #     title=title_origin,
+                    #     publication_date=today,
+                    #     link=prefix+link,
+                    #     place=place,
+                    #     employeer=employeer_origin
+                    #
+                    #     )
+                    # new_jobs.save()
+
+                    new_job = Job(
                         title=title_origin,
                         publication_date=today,
-                        link=prefix+link,
+                        link=prefix + link,
                         place=place,
+                        is_active=True,
                         employeer=employeer_origin
-
                     )
-                    new_jobs.save()
+                    new_job.save()
 
 
 

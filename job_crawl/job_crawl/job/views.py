@@ -43,13 +43,14 @@ class IndexPage(views.TemplateView):
 
 def StoreNewJobs(request):
     """ this function start the crawling from Jobs.ch and Jobscout.ch and store the result to db"""
-    # crawl_data_from_jobs_ch()
-    # crawl_from_youtoore()
-    # searcher_jobscout()
     start = time.time()
-    Thread(target=crawl_data_from_jobs_ch).start()
-    Thread(target=crawl_from_youtoore).start()
-    Thread(target=searcher_jobscout).start()
+    crawl_data_from_jobs_ch()
+    crawl_from_youtoore()
+    searcher_jobscout()
+
+    # Thread(target=crawl_data_from_jobs_ch).start()
+    # Thread(target=crawl_from_youtoore).start()
+    # Thread(target=searcher_jobscout).start()
 
     print(f"END OF SEARCH=== {time.time()-start:.3f} sec")
 
