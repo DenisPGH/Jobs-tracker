@@ -93,6 +93,7 @@ function showText(){
         <th>Date</th>
         <th>Place</th>
         <th>Employer</th>
+        <th>Store</th>
 
 
 
@@ -105,7 +106,12 @@ function showText(){
             <td>
                 <a href="{{ each.link }}">Jobs.ch</a>
             </td>
-{#            <td class="date_">{{ each.publication_date}}</td>#}
+            <td class="date_">{{ each.publication_date}}</td>
+
+            <td>{{ each.place}}</td>
+            <td>
+                {{ each.employeer }}
+            </td>
             <td class="date_">
                  <form class="l" method='post' action="{% url 'jobs_ch' each.pk %}">
                 <button class="l">
@@ -117,10 +123,6 @@ function showText(){
                      </button>
                 {% csrf_token %}
             </form>
-            </td>
-            <td>{{ each.place}}</td>
-            <td>
-                {{ each.employeer }}
             </td>
 
 
@@ -140,6 +142,7 @@ function showText(){
         <th>Date</th>
         <th>Place</th>
         <th>Employer</th>
+        <th>Store</th>
 
 
 
@@ -152,8 +155,13 @@ function showText(){
             <td>
                 <a href="{{ each.link }}">Jobscout</a>
             </td>
-{#            <td class="date_">{{ each.publication_date}}</td>#}
-            <td class="date_">
+            <td class="date_">{{ each.publication_date}}</td>
+
+            <td>{{ each.place}}</td>
+            <td>
+                {{ each.employeer }}
+            </td>
+         <td class="date_">
                  <form class="l" method='post' action="{% url 'jobs_scout' each.pk %}">
                     {% if each.apply == True %}
                        <button class="l"> Bewerbung</button>
@@ -163,10 +171,7 @@ function showText(){
 
                 {% csrf_token %}
             </form>
-            <td>{{ each.place}}</td>
-            <td>
-                {{ each.employeer }}
-            </td>
+         </td>
 
 
         </tr>
@@ -186,6 +191,7 @@ function showText(){
         <th>Date</th>
         <th>Place</th>
         <th>Employeer</th>
+        <th>Store</th>
 
 
 
@@ -197,8 +203,13 @@ function showText(){
             <td>
                 <a href="{{ each.link }}">YouToore</a>
             </td>
-{#            <td class="date_">{{ each.publication_date}}</td>#}
-            <td class="date_">
+            <td class="date_">{{ each.publication_date}}</td>
+
+            <td>{{ each.place}}</td>
+            <td>
+                {{ each.employeer }}
+            </td>
+        <td class="date_">
                  <form class="l" method='post' action="{% url 'jobs_youtore' each.pk %}">
                 <button class="l">
                 {% if each.apply %}
@@ -209,10 +220,7 @@ function showText(){
                 </button>
                 {% csrf_token %}
             </form>
-            <td>{{ each.place}}</td>
-            <td>
-                {{ each.employeer }}
-            </td>
+        </td>
 
 
         </tr>

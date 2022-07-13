@@ -62,13 +62,13 @@ def crawl_data_from_jobs_ch():
     today=str(datetime.today()).split(' ')[0]
     with open('info.csv','w') as file:
         file.write('')
-
+    # 'sort': 'date',
     while True:
         params = {
             'location': 'Bern',
             'page': f'{counter}',
             'rows': '20',
-            'sort': 'date',
+
         }
         response = requests.get('https://www.jobs.ch/api/v1/public/search', params=params, cookies=cookies, headers=headers)
         result=json.loads(response.text)
@@ -79,16 +79,18 @@ def crawl_data_from_jobs_ch():
 
         print(f"Jobs.ch Page: {counter} ==> {len(result['documents'])}")
         counter+=1
+        if counter >50:
+            break
         with open('info.csv', mode='a', newline='') as job_file:
             jobs_writer = csv.writer(job_file, delimiter='|')
             for each_job_ind in range(len(result['documents'])):
                 title = prove_for_german_letter(result["documents"][each_job_ind]['title'])
                 title_origin=result["documents"][each_job_ind]['title']
                 publication_date = result["documents"][0]['publication_date'].split('T')[0]
-                if publication_date !=today:
-                    """ store only jobs from the current day"""
-                    counter_older_jobs += 1
-                    continue
+                # if publication_date !=today:
+                #     """ store only jobs from the current day"""
+                #     counter_older_jobs += 1
+                #     continue
                 place = prove_for_german_letter(result["documents"][each_job_ind]['place'])
                 is_active = result["documents"][each_job_ind]['is_active']
                 link_ = result["documents"][each_job_ind]['_links']['detail_de']['href']

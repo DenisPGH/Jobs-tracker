@@ -17,9 +17,9 @@ class IndexPage(views.TemplateView):
         today = str(datetime.today()).split(' ')[0]
         context = super().get_context_data(**kwargs)
         # self.object is a Profile instance
-        jobs = Job.objects.all().order_by('title')
-        jobscout = JobScout.objects.all().filter(publication_date=today).order_by('title')
-        youtoore= JobYouToor.objects.all().filter(publication_date=today).order_by('title')
+        jobs = Job.objects.all().order_by('-publication_date')
+        jobscout = JobScout.objects.all().order_by('-publication_date')
+        youtoore= JobYouToor.objects.all().order_by('-publication_date')
         bewerbungen= Bewerbungen.objects.all()
         context['jobs']=jobs
         context['today']=today
