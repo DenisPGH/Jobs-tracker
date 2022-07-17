@@ -132,7 +132,8 @@ def searcher_jobscout():
                         link=prefix + link,
                         place=place,
                         is_active=True,
-                        employeer=employeer_origin
+                        employeer=employeer_origin,
+                        borse='Jobscout.ch'
                     )
                     new_job.save()
 

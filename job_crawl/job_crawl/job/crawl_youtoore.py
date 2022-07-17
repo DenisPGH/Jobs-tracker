@@ -97,7 +97,8 @@ def crawl_from_youtoore():
                     place=place,
                     is_active=True,
                     link=link_,
-                    employeer=employer
+                    employeer=employer,
+                    borse='Youtoore.ch'
                 )
                 new_job.save()
         page_counter += 1

@@ -14,6 +14,7 @@ class Job(models.Model):
     is_active=models.BooleanField(default=True)
     link=models.URLField()
     employeer = models.CharField(max_length=EMPLOYEER_MAX_LENGTH, null=True)
+    borse=models.CharField(max_length=PLACE_MAX_LENGTH,null=True)
 
 
 class JobScout(models.Model):

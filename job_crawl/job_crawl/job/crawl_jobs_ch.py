@@ -118,7 +118,8 @@ def crawl_data_from_jobs_ch():
                         place=place,
                         is_active=is_active,
                         link=link_,
-                        employeer=employeer
+                        employeer=employeer,
+                        borse='Jobs.ch'
                     )
                     new_job.save()
 
