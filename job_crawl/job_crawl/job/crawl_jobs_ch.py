@@ -7,6 +7,14 @@ from job_crawl.job.helper import prove_for_german_letter, bad_works, wished_work
 from job_crawl.job.models import Job
 
 
+import pyttsx3
+
+speaker = pyttsx3.init()
+speaker.setProperty("rate", 150)
+speaker.setProperty("voice", 'HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices\\Tokens\\TTS_MS_EN-US_ZIRA_11.0')
+
+
+
 
 
 def crawl_data_from_jobs_ch():
@@ -79,7 +87,7 @@ def crawl_data_from_jobs_ch():
 
         print(f"Jobs.ch Page: {counter} ==> {len(result['documents'])}")
         counter+=1
-        if counter >50:
+        if counter >500:
             break
         # with open('info.csv', mode='a', newline='') as job_file:
         #     jobs_writer = csv.writer(job_file, delimiter='|')
@@ -117,6 +125,8 @@ def crawl_data_from_jobs_ch():
 
 
     print(f'Time for it: {time.time()-start}')
+    speaker.say(f'The Program is finished in {int(time.time()-start)} seconds!!!')
+    speaker.runAndWait()
 
 
 

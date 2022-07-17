@@ -67,7 +67,7 @@ def crawl_from_youtoore():
         if code !=200 or older_jobs_counter>30:
             break
         print(f"Youtoore Page {page_counter}={code} --> {len(result['vacancies'])}")
-        if len(result['vacancies'])==0 or page_counter>100:
+        if len(result['vacancies'])==0 or page_counter>200:
             break
         for each_job in range(len(result['vacancies'])):
             employer=result['vacancies'][each_job]['company']['ident']
