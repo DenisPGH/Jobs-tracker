@@ -3,6 +3,13 @@ import datetime
 
 from job_crawl.job.models import JobScout, Job, Bewerbungen
 
+import pyttsx3
+
+speaker = pyttsx3.init()
+speaker.setProperty("rate", 150)
+speaker.setProperty("voice", 'HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices\\Tokens\\TTS_MS_EN-US_ZIRA_11.0')
+
+
 
 def prove_for_german_letter(text):
     """ function for clear the text from no ASCII char,
@@ -51,7 +58,8 @@ def bad_works(name):
 
 def wished_works(work):
     #good_works=['masseur','physio','entwickler']
-    good_works=['kindererziehrin','kindererziehung','baby','kinder','erziehung', 'kind','sitting']
+    good_works=['kindererziehrin','kindererziehung','baby','kinder','erziehung',
+                'kind','sitting','erziehen','kids','kid','kitta',]
 
     if any(word in work.lower() for word in good_works):
         return True
@@ -124,6 +132,12 @@ def fuction_for_store_applied_job(object_to_store):
         apply=True,
     )
     new_bewerbung.save()
+
+
+
+def speak_function(word:str):
+    speaker.say(word)
+    speaker.runAndWait()
 
 
 
