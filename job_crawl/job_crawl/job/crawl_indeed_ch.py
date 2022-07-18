@@ -13,8 +13,7 @@ import time
 from job_crawl.job.helper import prove_for_german_letter, bad_works, check_if_record_already_exist, wished_works
 from job_crawl.job.models import JobScout, Job
 
-pattern=r'href="(?P<link>([^@]+/))"[^@]+ title="(?P<name>([^@]+))"'
-patter_town=r'<span>(?P<employer>([^@]+))</[^@]+>, <span>(?P<place>([^@]+))</span>'
+pattern=r'<a aria-label="(?P<title>([^@]+))" class="jcs-JobTitle css-jspxzf eu4oa1w0"[^@]+ class="companyLocation">(?P<location>([^@]+)), [^@]+'
 
 
 

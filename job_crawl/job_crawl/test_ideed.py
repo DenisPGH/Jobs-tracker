@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup as soup
 import re
 import time
-
+pattern=r'<a aria-label="(?P<title>([^@]+))" class="jcs-JobTitle css-jspxzf eu4oa1w0"[^@]+ class="companyLocation">(?P<location>([^@]+)), [^@]+'
 
 cookies = {
     'CTK': '1frd7g1fur89n800',
@@ -58,8 +58,9 @@ headers = {
 params = {
     'q': '',
     'l': 'Bern, BE',
-    'start': '10',
+    'start': '0', # ot koq pochwa 0-1,10-2,20-3,30-4str
     'pp': 'gQAPAAAAAAAAAAAAAAAB3YkJSAAuAQAZ7zv6Ed1n2nD4EsybaOjp04wd_5vdPtAirO0Aal-kXLZ5nG5stUtr7pW6kgAA',
+
 }
 
 response = requests.get('https://ch.indeed.com/jobs', params=params, cookies=cookies, headers=headers)
@@ -67,5 +68,18 @@ response = requests.get('https://ch.indeed.com/jobs', params=params, cookies=coo
 #print(response.text)
 html=soup(response.text,'html.parser')
 all_jobs=html.select('.job_seen_beacon') # return a list
-alll_jobs=html.select('.jobTitle css-1h4a4n5 eu4oa1w0') # return a list
-print(all_jobs)
+alll_jobs=html.select('.resultContent') # return a list
+#allll_jobs=html.select('.jobTitle jobTitle-newJob css-bdjp2m eu4oa1w0') # return a list
+#print(all_jobs)
+#print(alll_jobs[0])
+for each_job in alll_jobs:
+    title=''
+    place=''
+    found=re.finditer(pattern,str(each_job))
+    for info in found:
+        title=info.group('title')
+        place=info.group('location')
+    print(f'{title}=={place}')
+
+
+# https://ch.indeed.com/+ linka ot faila
