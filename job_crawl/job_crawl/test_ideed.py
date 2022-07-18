@@ -68,7 +68,7 @@ response = requests.get('https://ch.indeed.com/jobs', params=params, cookies=coo
 
 #print(response.text)
 html=soup(response.text,'html.parser')
-all_jobs=html.select('.job_seen_beacon') # return a list
+#all_jobs=html.select('.job_seen_beacon') # return a list
 alll_jobs=html.select('.resultContent') # return a list
 #allll_jobs=html.select('.jobTitle jobTitle-newJob css-bdjp2m eu4oa1w0') # return a list
 #print(all_jobs)

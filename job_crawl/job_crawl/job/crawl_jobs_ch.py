@@ -10,8 +10,6 @@ from job_crawl.job.models import Job
 def crawl_data_from_jobs_ch():
     """ this function crawl all result by given criteria
     and store returned result ot db and txt file"""
-    for_del=Job.objects.all()
-    for_del.delete()
     cookies = {
         'session_id': '289a0728-dde1-4c6a-bca4-da645a35e6b7',
         'xp_consent_mgr': 'analytics%2Csearch',

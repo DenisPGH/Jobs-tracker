@@ -4,10 +4,12 @@ from django.shortcuts import render, redirect
 from django.views import generic as views
 from datetime import datetime
 from  datetime import datetime
+
+from job_crawl.job.crawl_indeed_ch import indeed_ch
 from job_crawl.job.crawl_jobs_ch import crawl_data_from_jobs_ch
 from job_crawl.job.crawl_jobs_scout import searcher_jobscout
 from job_crawl.job.crawl_youtoore import crawl_from_youtoore
-from job_crawl.job.helper import fuction_for_store_applied_job
+from job_crawl.job.helper import fuction_for_store_applied_job, speak_function
 from job_crawl.job.models import Job, JobScout, JobYouToor, Bewerbungen
 
 from threading import Thread
@@ -46,6 +48,8 @@ class IndexPage(views.TemplateView):
 def StoreNewJobs(request):
     """ this function start the crawling from Jobs.ch and Jobscout.ch and store the result to db"""
     start = time.time()
+    for_del = Job.objects.all()
+    for_del.delete()
     #crawl_data_from_jobs_ch()
     # crawl_from_youtoore()
     # searcher_jobscout()
@@ -55,16 +59,17 @@ def StoreNewJobs(request):
     # asyncio.run(crawl_from_youtoore())
     # asyncio.run(searcher_jobscout())
 
+    #indeed_ch()
+    # Thread(target=crawl_data_from_jobs_ch).start()
+    job=Thread(target=crawl_data_from_jobs_ch)
+    scout=Thread(target=searcher_jobscout)
+    you=Thread(target=crawl_from_youtoore)
+    inde=Thread(target=indeed_ch)
+    scout.start()
 
 
-    Thread(target=crawl_data_from_jobs_ch).start()
-    Thread(target=crawl_from_youtoore).start()
-    Thread(target=searcher_jobscout).start()
-
-    print(f"END OF SEARCH=== {time.time()-start:.3f} sec")
-
-
-
+    print(f"END OF ALL SEARCHs ===> {time.time()-start:.3f} sec")
+    speak_function(f'The Program is finished in {int(time.time() - start)} seconds!!!')
     return redirect('index')
 
 
