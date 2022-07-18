@@ -59,7 +59,9 @@ def bad_works(name):
 def wished_works(work):
     #good_works=['masseur','physio','entwickler']
     good_works=['kindererziehrin','kindererziehung','baby','kinder','erziehung',
-                'kind','sitting','erziehen','kids','kid','kitta',]
+                'kind','sitting','erziehen','kids','kid','kitta','babysitter','aushilfe']
+
+    #good_works=['babysitter']
 
     if any(word in work.lower() for word in good_works):
         return True
