@@ -59,7 +59,7 @@
 {#    <p> DATE: {{ today }} == {{ all }}  (Jobs.ch-> {{ jobs_ch_len }} || Jobscout.ch-> {{ scout_ch_len }} || Youtoore-> {{ youtoor_ch_len }})        gesendete Bewerbungen=={{ bewerbungen_len }}</p>#}
     <p> until TODAY: {{ today }} == {{ all }},----  gesendete Bewerbungen=={{ bewerbungen_len }}</p>
     <form class="mid" action="{% url 'crawl' %}">
-            <button class="mid" id="stop">Jobs.ch* + Jobscout + Youtoore</button>
+            <button class="mid" id="stop">Jobs.ch* + Jobscout + Youtoore + Indeed</button>
             {% csrf_token %}
         </form>
         <h5> * it takes about 50 sec, then refresh the page </h5>

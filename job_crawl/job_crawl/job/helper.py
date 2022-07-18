@@ -59,7 +59,7 @@ def bad_works(name):
 def wished_works(work):
     #good_works=['masseur','physio','entwickler']
     good_works=['kindererziehrin','kindererziehung','baby','kinder','erziehung',
-                'kind','sitting','erziehen','kids','kid','kitta','babysitter','aushilfe']
+                'kind','sitting','erziehen','kids','kid','kitta','babysitter']
 
     #good_works=['babysitter']
 

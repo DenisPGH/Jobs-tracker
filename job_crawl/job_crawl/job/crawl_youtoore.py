@@ -2,10 +2,13 @@ import json
 from datetime import datetime
 import requests
 import time
+
+from asgiref.sync import sync_to_async
+
 from job_crawl.job.helper import bad_works, wished_works
 from job_crawl.job.models import JobYouToor, Job
 
-
+#@sync_to_async
 def crawl_from_youtoore():
     start=time.time()
     del_table=JobYouToor.objects.all()

@@ -3,10 +3,13 @@ import csv
 import requests
 import time
 from datetime import datetime
+
+from asgiref.sync import sync_to_async
+
 from job_crawl.job.helper import prove_for_german_letter, bad_works, wished_works, speak_function
 from job_crawl.job.models import Job
 
-
+#@sync_to_async
 def crawl_data_from_jobs_ch():
     """ this function crawl all result by given criteria
     and store returned result ot db and txt file"""
@@ -114,7 +117,7 @@ def crawl_data_from_jobs_ch():
 
 
     print(f'Time for it: {time.time()-start}')
-    speak_function(f'The Program is finished in {int(time.time()-start)} seconds!!!')
+    #speak_function(f'The Program is finished in {int(time.time()-start)} seconds!!!')
 
 
 

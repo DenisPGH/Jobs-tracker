@@ -2,11 +2,12 @@
 from datetime import datetime as dt
 import datetime
 import requests
+from asgiref.sync import sync_to_async
 from bs4 import BeautifulSoup as soup
 import re
 import time
 
-from job_crawl.job.helper import wished_works
+from job_crawl.job.helper import wished_works, speak_function
 from job_crawl.job.models import  Job
 
 pattern=r'<a aria-label="(?P<title>([^@]+))" class="jcs-JobTitle css-jspxzf eu4oa1w0"[^@]+ href="(?P<href>([^@]+role="button"))[^@]+ class="companyLocation">(?P<location>([^@]+)),'
@@ -73,7 +74,7 @@ def indeed_ch():
 
         }
         response = requests.get('https://ch.indeed.com/jobs', params=params, cookies=cookies, headers=headers)
-        if response.status_code !=200 or counter_pages>1000:
+        if response.status_code !=200 or counter_pages>100:
             break
         counter_pages+=1
         html=soup(response.text,'html.parser')
@@ -105,4 +106,5 @@ def indeed_ch():
 
 
     print(f'Done indeed.Time: {time.time() - start}')
+    speak_function(f'The Program is finished in {int(time.time() - start)} seconds!!!')
 

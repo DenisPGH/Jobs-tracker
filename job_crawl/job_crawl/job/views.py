@@ -1,5 +1,6 @@
 import asyncio
 
+from asgiref.sync import sync_to_async
 from django.shortcuts import render, redirect
 from django.views import generic as views
 from datetime import datetime
@@ -44,6 +45,9 @@ class IndexPage(views.TemplateView):
         return context
 
 
+async def run_all_crawl_processes():
+    await asyncio.gather(indeed_ch(),crawl_data_from_jobs_ch(),
+                         searcher_jobscout(),crawl_from_youtoore())
 
 def StoreNewJobs(request):
     """ this function start the crawling from Jobs.ch and Jobscout.ch and store the result to db"""
@@ -60,16 +64,19 @@ def StoreNewJobs(request):
     # asyncio.run(searcher_jobscout())
 
     #indeed_ch()
-    # Thread(target=crawl_data_from_jobs_ch).start()
-    job=Thread(target=crawl_data_from_jobs_ch)
+    Thread(target=crawl_data_from_jobs_ch).start()
+    job_=Thread(target=crawl_data_from_jobs_ch)
     scout=Thread(target=searcher_jobscout)
     you=Thread(target=crawl_from_youtoore)
     inde=Thread(target=indeed_ch)
     scout.start()
+    you.start()
+    job_.start()
+    inde.start()
 
-
+    #asyncio.run(run_all_crawl_processes())
     print(f"END OF ALL SEARCHs ===> {time.time()-start:.3f} sec")
-    speak_function(f'The Program is finished in {int(time.time() - start)} seconds!!!')
+    #speak_function(f'The Program is finished in {int(time.time() - start)} seconds!!!')
     return redirect('index')
 
 

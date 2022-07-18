@@ -2,6 +2,7 @@ import csv
 from datetime import datetime as dt
 import datetime
 import requests
+from asgiref.sync import sync_to_async
 from bs4 import BeautifulSoup as soup
 import re
 import time
@@ -17,7 +18,7 @@ pattern=r'href="(?P<link>([^@]+/))"[^@]+ title="(?P<name>([^@]+))"'
 patter_town=r'<span>(?P<employer>([^@]+))</[^@]+>, <span>(?P<place>([^@]+))</span>'
 
 
-
+#@sync_to_async
 def searcher_jobscout():
     start = time.time()
     del_table=JobScout.objects.all()
