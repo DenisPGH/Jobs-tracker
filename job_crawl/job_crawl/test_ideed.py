@@ -2,7 +2,8 @@ import requests
 from bs4 import BeautifulSoup as soup
 import re
 import time
-pattern=r'<a aria-label="(?P<title>([^@]+))" class="jcs-JobTitle css-jspxzf eu4oa1w0"[^@]+ class="companyLocation">(?P<location>([^@]+)), [^@]+'
+#pattern=r'<a aria-label="(?P<title>([^@]+))" class="jcs-JobTitle css-jspxzf eu4oa1w0"[^@]+ class="companyLocation">(?P<location>([^@]+)), [^@]+'
+pattern=r'<a aria-label="(?P<title>([^@]+))" class="jcs-JobTitle css-jspxzf eu4oa1w0"[^@]+ href="(?P<href>([^@]+role="button"))[^@]+ class="companyLocation">(?P<location>([^@]+)),'
 
 cookies = {
     'CTK': '1frd7g1fur89n800',
@@ -75,11 +76,13 @@ alll_jobs=html.select('.resultContent') # return a list
 for each_job in alll_jobs:
     title=''
     place=''
+    link=''
     found=re.finditer(pattern,str(each_job))
     for info in found:
-        title=info.group('title')
+        title=info.group('title').split(' of ')[1]
         place=info.group('location')
-    print(f'{title}=={place}')
+        link=f"https://ch.indeed.com{info.group('href').split(';')[0]}"
+    print(f'{title}=={place}=={link}')
 
 
 # https://ch.indeed.com/+ linka ot faila
