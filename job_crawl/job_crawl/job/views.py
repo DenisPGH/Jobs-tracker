@@ -55,6 +55,7 @@ def StoreNewJobs(request):
     start = time.time()
     for_del = Job.objects.all()
     for_del.delete()
+    CounterJobs.COUNTER=0
     crawl_data_from_jobs_ch()
     crawl_from_youtoore()
     searcher_jobscout()

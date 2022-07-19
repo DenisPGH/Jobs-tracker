@@ -12,7 +12,7 @@ class Job(models.Model):
     publication_date=models.DateField()
     place=models.CharField(max_length=PLACE_MAX_LENGTH)
     is_active=models.BooleanField(default=True)
-    link=models.URLField()
+    link=models.URLField(null=True)
     employeer = models.CharField(max_length=EMPLOYEER_MAX_LENGTH, null=True)
     borse=models.CharField(max_length=PLACE_MAX_LENGTH,null=True)
 

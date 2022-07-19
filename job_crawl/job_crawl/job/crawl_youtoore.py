@@ -86,18 +86,8 @@ def crawl_from_youtoore():
             # if date !=today or bad_works(title):
             #     older_jobs_counter += 1
             #     continue
-
+            CounterJobs.COUNTER += 1
             if wished_works(title):
-                # new_job=JobYouToor(
-                #     title=title,
-                #     publication_date=date,
-                #     employeer=employer,
-                #     place=place,
-                #     link=link_
-                #
-                # )
-                # new_job.save()
-                CounterJobs.COUNTER += 1
                 new_job = Job(
                     title=title,
                     publication_date=date,
