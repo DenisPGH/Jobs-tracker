@@ -58,10 +58,10 @@ def bad_works(name):
 
 def wished_works(work):
     #good_works=['masseur','physio','entwickler']
-    good_works=['kindererziehrin','kindererziehung','baby','kinder','erziehung',
-                'kind','sitting','erziehen','kids','kid','kitta','babysitter']
+    #good_works=['kindererziehrin','kindererziehung','baby','kinder','erziehung',
+    #            'kind','sitting','erziehen','kids','kid','kitta','babysitter']
 
-    #good_works=['babysitter']
+    good_works=['entwickler']
 
     if any(word in work.lower() for word in good_works):
         return True
@@ -140,6 +140,11 @@ def fuction_for_store_applied_job(object_to_store):
 def speak_function(word:str):
     speaker.say(word)
     speaker.runAndWait()
+
+
+
+class CounterJobs:
+    COUNTER=0
 
 
 

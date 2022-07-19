@@ -5,7 +5,7 @@ import time
 
 from asgiref.sync import sync_to_async
 
-from job_crawl.job.helper import bad_works, wished_works
+from job_crawl.job.helper import bad_works, wished_works, CounterJobs
 from job_crawl.job.models import JobYouToor, Job
 
 #@sync_to_async
@@ -93,7 +93,7 @@ def crawl_from_youtoore():
                 #
                 # )
                 # new_job.save()
-
+                CounterJobs.COUNTER += 1
                 new_job = Job(
                     title=title,
                     publication_date=date,

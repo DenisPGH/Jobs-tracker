@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup as soup
 import re
 import time
 
-from job_crawl.job.helper import wished_works, speak_function
+from job_crawl.job.helper import wished_works, speak_function, CounterJobs
 from job_crawl.job.models import  Job
 
 pattern=r'<a aria-label="(?P<title>([^@]+))" class="jcs-JobTitle css-jspxzf eu4oa1w0"[^@]+ href="(?P<href>([^@]+role="button"))[^@]+ class="companyLocation">(?P<location>([^@]+)),'
@@ -90,7 +90,7 @@ def indeed_ch():
                 place = info.group('location')
                 link = f"{info.group('href').split(';')[0]}"
             #print(f'{title}=={place}=={link}')
-
+            CounterJobs.COUNTER+=1
             if wished_works(title):
                     new_job = Job(
                         title=title,

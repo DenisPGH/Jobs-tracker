@@ -6,7 +6,7 @@ from datetime import datetime
 
 from asgiref.sync import sync_to_async
 
-from job_crawl.job.helper import prove_for_german_letter, bad_works, wished_works, speak_function
+from job_crawl.job.helper import prove_for_german_letter, bad_works, wished_works, speak_function, CounterJobs
 from job_crawl.job.models import Job
 
 #@sync_to_async
@@ -101,7 +101,7 @@ def crawl_data_from_jobs_ch():
                 #jobs_writer.writerow([title, publication_date, place, is_active, link_])
                 # if bad_works(title):
                 #     continue
-
+                CounterJobs.COUNTER += 1
                 if wished_works(title):
                     new_job=Job(
                         title=title_origin,

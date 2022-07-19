@@ -10,7 +10,7 @@ from job_crawl.job.crawl_indeed_ch import indeed_ch
 from job_crawl.job.crawl_jobs_ch import crawl_data_from_jobs_ch
 from job_crawl.job.crawl_jobs_scout import searcher_jobscout
 from job_crawl.job.crawl_youtoore import crawl_from_youtoore
-from job_crawl.job.helper import fuction_for_store_applied_job, speak_function
+from job_crawl.job.helper import fuction_for_store_applied_job, speak_function, CounterJobs
 from job_crawl.job.models import Job, JobScout, JobYouToor, Bewerbungen
 
 from threading import Thread
@@ -40,6 +40,7 @@ class IndexPage(views.TemplateView):
         context['youtoor_ch_len']=len(youtoore)
         context['bewerbungen_len']=len(bewerbungen)
         context['my_line']="-"*140
+        context['throw_in']= CounterJobs.COUNTER
 
 
         return context
@@ -54,29 +55,31 @@ def StoreNewJobs(request):
     start = time.time()
     for_del = Job.objects.all()
     for_del.delete()
-    #crawl_data_from_jobs_ch()
-    # crawl_from_youtoore()
-    # searcher_jobscout()
+    crawl_data_from_jobs_ch()
+    crawl_from_youtoore()
+    searcher_jobscout()
+    indeed_ch()
+    print(f"END OF ALL SEARCHs ===> {time.time() - start:.3f} sec")
+    speak_function(f'The Program is finished in {int(time.time() - start)} seconds!!!')
 
 
     #asyncio.run(crawl_data_from_jobs_ch())
     # asyncio.run(crawl_from_youtoore())
     # asyncio.run(searcher_jobscout())
 
-    #indeed_ch()
-    Thread(target=crawl_data_from_jobs_ch).start()
-    job_=Thread(target=crawl_data_from_jobs_ch)
-    scout=Thread(target=searcher_jobscout)
-    you=Thread(target=crawl_from_youtoore)
-    inde=Thread(target=indeed_ch)
-    scout.start()
-    you.start()
-    job_.start()
-    inde.start()
+
+    #Thread(target=crawl_data_from_jobs_ch).start()
+    # job_=Thread(target=crawl_data_from_jobs_ch)
+    # scout=Thread(target=searcher_jobscout)
+    # you=Thread(target=crawl_from_youtoore)
+    # inde=Thread(target=indeed_ch)
+    # scout.start()
+    # you.start()
+    # job_.start()
+    # inde.start()
 
     #asyncio.run(run_all_crawl_processes())
-    print(f"END OF ALL SEARCHs ===> {time.time()-start:.3f} sec")
-    #speak_function(f'The Program is finished in {int(time.time() - start)} seconds!!!')
+
     return redirect('index')
 
 

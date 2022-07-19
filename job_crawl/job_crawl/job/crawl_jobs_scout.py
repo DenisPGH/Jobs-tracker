@@ -11,7 +11,8 @@ import time
 
 
 
-from job_crawl.job.helper import prove_for_german_letter, bad_works, check_if_record_already_exist, wished_works
+from job_crawl.job.helper import prove_for_german_letter, bad_works, check_if_record_already_exist, wished_works, \
+    CounterJobs
 from job_crawl.job.models import JobScout, Job
 
 pattern=r'href="(?P<link>([^@]+/))"[^@]+ title="(?P<name>([^@]+))"'
@@ -114,7 +115,7 @@ def searcher_jobscout():
                 #job_for_prove=title_origin+place+employeer_origin # for prove if already in db, Jobs and Jobscout
                 # if bad_works(title) or check_if_record_already_exist(job_for_prove):
                 #     continue
-
+                CounterJobs.COUNTER += 1
                 if wished_works(title):
                     # new_jobs=JobScout(
                     #     title=title_origin,
