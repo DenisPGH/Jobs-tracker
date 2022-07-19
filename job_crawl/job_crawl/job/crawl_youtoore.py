@@ -76,8 +76,12 @@ def crawl_from_youtoore():
             employer=result['vacancies'][each_job]['company']['ident']
             title=result['vacancies'][each_job]['jobTitle']
             date=result['vacancies'][each_job]['fetchTime'].split('T')[0]
-            link_=result['vacancies'][each_job]['url']
+
             place=result['vacancies'][each_job]['city']
+            try:
+                link_ = result['vacancies'][each_job]['url']
+            except:
+                link_ = 'https://github.com/DenisPGH'
             #print(date,today)
             # if date !=today or bad_works(title):
             #     older_jobs_counter += 1
