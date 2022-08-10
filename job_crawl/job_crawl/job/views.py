@@ -59,7 +59,7 @@ def StoreNewJobs(request):
     crawl_data_from_jobs_ch()
     crawl_from_youtoore()
     searcher_jobscout()
-    indeed_ch()
+    #indeed_ch()
     print(f"END OF ALL SEARCHs ===> {time.time() - start:.3f} sec")
     speak_function(f'The Program is finished in {int(time.time() - start)} seconds!!!')
 

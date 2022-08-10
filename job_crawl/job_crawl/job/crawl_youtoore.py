@@ -45,7 +45,7 @@ def crawl_from_youtoore():
         }
 
         json_data = {
-            'searchTerm': 'Bern',
+            'searchTerm': 'Schweiz',
             'filters': {
                 'location': {
                     'regionCodes': [],

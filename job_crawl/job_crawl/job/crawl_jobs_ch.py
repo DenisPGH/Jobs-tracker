@@ -64,7 +64,7 @@ def crawl_data_from_jobs_ch():
     # 'sort': 'date',
     while True:
         params = {
-            'location': 'Bern',
+            'location': 'Schweiz',
             'page': f'{counter}',
             'rows': '20',
 
