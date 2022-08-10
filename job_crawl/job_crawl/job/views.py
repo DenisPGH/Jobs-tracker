@@ -56,8 +56,8 @@ def StoreNewJobs(request):
     for_del = Job.objects.all()
     for_del.delete()
     CounterJobs.COUNTER=0
-    crawl_data_from_jobs_ch()
-    crawl_from_youtoore()
+    #crawl_data_from_jobs_ch()
+    #crawl_from_youtoore()
     searcher_jobscout()
     #indeed_ch()
     print(f"END OF ALL SEARCHs ===> {time.time() - start:.3f} sec")
